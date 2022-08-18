@@ -37,6 +37,8 @@ public class CustomerService implements UserDetailsService {
 
         customerRepository.save(customer);
 
-        return "it works";
+
+
+        return "Signed up perfectly";
     }
 }
