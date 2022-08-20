@@ -8,6 +8,7 @@ class AuthMicroApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println("Test passed");
 	}
 
 }
