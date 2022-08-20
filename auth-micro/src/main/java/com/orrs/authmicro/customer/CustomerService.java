@@ -74,4 +74,18 @@ public class CustomerService implements UserDetailsService {
 
 
     }
+    public String deleteCustomerById(String email){
+        boolean customerExists = customerRepository.findByEmail(email).isPresent();
+        if(customerExists){
+
+            Optional<Customer> wrapperCustomer = customerRepository.findByEmail(email);
+            Customer  existingCustomer = wrapperCustomer.get();
+            customerRepository.deleteById(existingCustomer.getId());
+
+            return "Customer Deleted Successfully!";
+
+        }else{
+            throw new IllegalStateException("User Not Found in Database");
+        }
+    }
 }
