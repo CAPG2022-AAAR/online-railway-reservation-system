@@ -31,15 +31,24 @@ public class Customer implements UserDetails {
             generator = "sequence1"
     )
     private Long id;
+
+
     private String fname;
 
     private String lname;
     private String address;
+
+
+
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+
     private String password;
+
+
     private String email;
 
     @Enumerated(EnumType.STRING)

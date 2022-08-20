@@ -36,6 +36,22 @@ public class CustomerService implements UserDetailsService {
             throw new IllegalStateException("User with Email already exist!");
         }
 
+        if(customer.getPassword() == ""){
+            throw new IllegalStateException("Password cannot be empty");
+        }
+
+        if(customer.getFname() == "" || customer.getFname().isEmpty()){
+            throw new IllegalStateException("Name cannot be empty");
+        }
+
+        if(customer.getGender().equals("")){
+            throw new IllegalStateException("Gender cannot be empty");
+        }
+
+        if(customer.getAddress().equals("")){
+            throw new IllegalStateException("Address cannot be empty");
+        }
+
         String encodedPassword = bCryptPasswordEncoder.encode(customer.getPassword());
         customer.setPassword(encodedPassword);
         customerRepository.save(customer);
