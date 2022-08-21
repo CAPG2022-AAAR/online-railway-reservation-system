@@ -85,12 +85,12 @@ public class CustomerService implements UserDetailsService {
             customerRepository.save(existingCustomer);
             return existingCustomer;
         }else{
-            throw new IllegalStateException("User doesn't exist in database");
+            throw new IllegalStateException("User doesn't exist");
         }
 
 
     }
-    public String deleteCustomerById(String email){
+    public String deleteCustomerByEmailId(String email){
         boolean customerExists = customerRepository.findByEmail(email).isPresent();
         if(customerExists){
 
@@ -101,7 +101,7 @@ public class CustomerService implements UserDetailsService {
             return "Customer Deleted Successfully!";
 
         }else{
-            throw new IllegalStateException("User Not Found in Database");
+            throw new IllegalStateException("User Not Found");
         }
     }
 }
