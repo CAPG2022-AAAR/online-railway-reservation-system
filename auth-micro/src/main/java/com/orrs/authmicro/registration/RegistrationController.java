@@ -1,7 +1,6 @@
 package com.orrs.authmicro.registration;
 
 
-import com.orrs.authmicro.customer.Customer;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/api/v1/update")
 @AllArgsConstructor
-public class updateCustomerController {
+public class UpdateCustomerController {
 
     private  RegistrationService registrationService;
     private CustomerService customerService;
 
 
     @PostMapping
-    public Customer update(@RequestBody Customer customer){
-        return customerService.updateCustomer(customer);
+    public Customer update(@RequestBody RegistrationRequest requestedCustomer){
+        return customerService.updateCustomer(requestedCustomer);
     }
 
 }

@@ -13,15 +13,11 @@ public class RegistrationService {
 
     private final CustomerService customerService;
     private EmailValidator emailValidator;
-    private PhoneValidator phoneValidator;
+
     public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.test(request.getEmail());
 
-        //boolean isPhoneValid = phoneValidator.test(request.getPhone());
 
-        //if(!isPhoneValid){
-          //  throw new IllegalStateException("Invalid Phone number Not Valid!");
-        //}
 
         if(!isValidEmail){
             throw new IllegalStateException("Email Not Valid!");
