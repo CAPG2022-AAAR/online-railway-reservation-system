@@ -25,7 +25,7 @@ class AuthMicroApplicationTests {
 
 
 	@Test
-	public void testJpaSave(){
+	void testJpaSave(){
 		Customer customer = customerRepository.save(new Customer(
 				"TestFname",
 				"TestLname",
@@ -38,11 +38,11 @@ class AuthMicroApplicationTests {
 		));
 
 
-		assertThat(customer.getId()).isGreaterThan(0);
+		assertThat(customer.getId()).isPositive();
 	}
 
 	@Test
-	public void testJpadelete(){
+	void testJpadelete(){
 		Optional<Customer> wrapperCustomer = customerRepository.findByEmail("testEmail1@gmail.com");
 		Customer existingCustomer = wrapperCustomer.get();
 		customerRepository.deleteById(existingCustomer.getId());
@@ -54,7 +54,7 @@ class AuthMicroApplicationTests {
 
 
 	@Test
-	public void testRegistration(){
+	 void testRegistration(){
 
 		String response = customerService.signUpCustomer(
 				new Customer(
@@ -72,14 +72,14 @@ class AuthMicroApplicationTests {
 		assertThat(response.equals("Signed up perfectly)"));
 	}
 	@Test
-	public void testJpaRetrieve(){
+	 void testJpaRetrieve(){
 
 		Optional<Customer> wrapCustomer = customerRepository.findByEmail("testEmail2@gmail.com");
 		Customer existingCustomer = wrapCustomer.get();
 		assertThat(existingCustomer.getFname().equals("TestFname"));
 	}
 	@Test
-	public void testUpdate(){
+	 void testUpdate(){
 		Customer newCustomer = new Customer(
 				"updatedTestFname",
 				"updatedTestLname",

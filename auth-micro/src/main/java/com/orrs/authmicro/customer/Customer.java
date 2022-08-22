@@ -21,50 +21,26 @@ import java.util.Collections;
 public class Customer implements UserDetails {
 
     @Id
-    @SequenceGenerator(
-            name = "sequence1",
-            sequenceName = "sequence1",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "sequence1"
-    )
+    @SequenceGenerator(name = "sequence1", sequenceName = "sequence1", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence1")
     private Long id;
 
 
     private String fname;
-
     private String lname;
     private String address;
-
-
-
     private String phoneNumber;
-
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
-
     private String password;
-
-
     private String email;
-
     @Enumerated(EnumType.STRING)
     private CustomerRole customerRole;
-    private boolean locked = false ;
-    private boolean enabled = true ;
+    private boolean locked = false;
+    private boolean enabled = true;
 
-    public Customer(
-            String fname,
-            String lname,
-            String address,
-            String phoneNumber,
-            Gender gender,
-            String password,
-            String email,
-            CustomerRole customerRole) {
+    public
+    Customer(String fname, String lname, String address, String phoneNumber, Gender gender, String password, String email, CustomerRole customerRole) {
         this.fname = fname;
         this.lname = lname;
         this.address = address;

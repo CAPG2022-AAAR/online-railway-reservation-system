@@ -1,7 +1,7 @@
 package com.orrs.authmicro.customer;
 
+import com.orrs.authmicro.registration.RegistrationRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,7 +19,7 @@ public class CustomerService implements UserDetailsService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private final String  USER_NOT_FOUND = "Customer with email %s not found";
+    private static final  String  USERNOTFOUND = "Customer with email %s not found";
     private final CustomerRepository customerRepository;
 
 
@@ -27,7 +27,7 @@ public class CustomerService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         return customerRepository.findByEmail(email)
-                .orElseThrow(()-> new UsernameNotFoundException(String.format(USER_NOT_FOUND,email)));
+                .orElseThrow(()-> new UsernameNotFoundException(String.format(USERNOTFOUND,email)));
     }
     public String signUpCustomer(Customer customer){
         boolean customerExists = customerRepository.findByEmail(customer.getEmail())
@@ -36,17 +36,14 @@ public class CustomerService implements UserDetailsService {
             throw new IllegalStateException("User with Email already exist!");
         }
 
-        if(customer.getPassword() == ""){
+        if(customer.getPassword().equals("")){
             throw new IllegalStateException("Password cannot be empty");
         }
 
-        if(customer.getFname() == "" || customer.getFname().isEmpty()){
+        if(customer.getFname().equals("") || customer.getFname().isEmpty()){
             throw new IllegalStateException("Name cannot be empty");
         }
 
-        if(customer.getGender().equals("")){
-            throw new IllegalStateException("Gender cannot be empty");
-        }
 
         if(customer.getAddress().equals("")){
             throw new IllegalStateException("Address cannot be empty");
@@ -66,24 +63,34 @@ public class CustomerService implements UserDetailsService {
 
 
 
-    public Customer updateCustomer(Customer customer){
+    public Customer updateCustomer(RegistrationRequest customer){
 
-        //Object principal =  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        //String userName = currentUsername((Principal) principal);
+
+
 
         boolean customerExists = customerRepository.findByEmail(customer.getEmail()).isPresent();
+
+        Customer  existingCustomer = null;
+        
         if(customerExists){
 
             Optional<Customer> wrapperCustomer = customerRepository.findByEmail(customer.getEmail());
-            Customer  existingCustomer = wrapperCustomer.get();
-            existingCustomer.setAddress(customer.getAddress());
-            existingCustomer.setFname(customer.getFname());
-            existingCustomer.setLname(customer.getLname());
-            existingCustomer.setPhoneNumber(customer.getPhoneNumber());
-            existingCustomer.setGender(customer.getGender());
-            customerRepository.save(existingCustomer);
-            return existingCustomer;
+            
+            if(wrapperCustomer.isPresent()){
+                existingCustomer = wrapperCustomer.get();
+                existingCustomer.setAddress(customer.getAddress());
+                existingCustomer.setFname(customer.getFname());
+                existingCustomer.setLname(customer.getLname());
+                existingCustomer.setPhoneNumber(customer.getPhone());
+                existingCustomer.setGender(customer.getGender());
+                customerRepository.save(existingCustomer);
+            }
+                 
+               
+                return existingCustomer;
+
+
         }else{
             throw new IllegalStateException("User doesn't exist");
         }
@@ -91,14 +98,16 @@ public class CustomerService implements UserDetailsService {
 
     }
     public String deleteCustomerByEmailId(String email){
-        boolean customerExists = customerRepository.findByEmail(email).isPresent();
-        if(customerExists){
 
-            Optional<Customer> wrapperCustomer = customerRepository.findByEmail(email);
-            Customer  existingCustomer = wrapperCustomer.get();
-            customerRepository.deleteById(existingCustomer.getId());
+        Optional<Customer> wrapperCustomer = customerRepository.findByEmail(email);
+        if(wrapperCustomer.isPresent()){
 
-            return "Customer Deleted Successfully!";
+                Customer  existingCustomer = wrapperCustomer.get();
+                customerRepository.deleteById(existingCustomer.getId());
+
+                return "Customer Deleted Successfully!";
+
+
 
         }else{
             throw new IllegalStateException("User Not Found");
