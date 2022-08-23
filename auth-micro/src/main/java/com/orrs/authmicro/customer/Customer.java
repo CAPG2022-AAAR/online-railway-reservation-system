@@ -1,9 +1,6 @@
 package com.orrs.authmicro.customer;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +14,7 @@ import java.util.Collections;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
+@ToString
 @Entity
 public class Customer implements UserDetails {
 
@@ -41,6 +39,18 @@ public class Customer implements UserDetails {
 
     public
     Customer(String fname, String lname, String address, String phoneNumber, Gender gender, String password, String email, CustomerRole customerRole) {
+        this.fname = fname;
+        this.lname = lname;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.password = password;
+        this.email = email;
+        this.customerRole = customerRole;
+    }
+
+    public Customer(Long id, String fname, String lname, String address, String phoneNumber, Gender gender, String password, String email, CustomerRole customerRole) {
+        this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.address = address;

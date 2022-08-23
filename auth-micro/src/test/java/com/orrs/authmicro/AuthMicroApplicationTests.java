@@ -3,108 +3,298 @@ package com.orrs.authmicro;
 import com.orrs.authmicro.customer.*;
 
 
+import com.orrs.authmicro.registration.EmailValidator;
+import com.orrs.authmicro.registration.RegistrationController;
+import com.orrs.authmicro.registration.RegistrationRequest;
 import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.GrantedAuthority;
 
+
+import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 
 @SpringBootTest
 class AuthMicroApplicationTests {
 
+
+
+
+
 	@Autowired
 	private  CustomerService customerService;
 
-	@Autowired
+	@MockBean
 	private CustomerRepository customerRepository;
 
-
 	@Test
-	void testJpaSave(){
-		Customer customer = customerRepository.save(new Customer(
-				"TestFname",
-				"TestLname",
-				"TestAddress",
-				"99999999999",
+	void testSave(){
+		Customer customer = new Customer("Anurag",
+				"Panwar",
+				"Colony 123",
+				"1234567890",
 				Gender.MALE,
-				"TestPassword",
-				"testEmail1@gmail.com",
-				CustomerRole.USER
-		));
+				"password",
+				"anu10300@gmail.com",
+				CustomerRole.USER );
 
-
-		assertThat(customer.getId()).isPositive();
-	}
-
-	@Test
-	void testJpadelete(){
-		Optional<Customer> wrapperCustomer = customerRepository.findByEmail("testEmail1@gmail.com");
-		Customer existingCustomer = wrapperCustomer.get();
-		customerRepository.deleteById(existingCustomer.getId());
-
-		assertThat(!customerRepository.findByEmail("testEmail1@gmail.com").isPresent());
-
+		when(customerRepository.save(customer)).thenReturn(customer);
+		assertEquals("Anurag" , customerService.signUpCustomer(customer).getFname());
 	}
 
 
-
 	@Test
-	 void testRegistration(){
+	void testUpdate(){
 
-		String response = customerService.signUpCustomer(
-				new Customer(
-						"TestFname",
-						"TestLname",
-						"TestAddress",
-						"99999999999",
-						Gender.MALE,
-						"TestPassword",
-						"testEmail2@gmail.com",
-						CustomerRole.USER
-				)
+		Customer existingCustomer = new Customer("Anurag",
+				"Panwar",
+				"Colony 123",
+				"1234567890",
+				Gender.MALE,
+				"password",
+				"anu10300@gmail.com",
+				CustomerRole.USER );
+
+		RegistrationRequest updatedCustomer = new RegistrationRequest(
+				"updatedAnurag",
+				"updatedPanwar",
+				"anu10300@gmail.com",
+				"anurag",
+				"updated address",
+				35,
+				Gender.MALE,
+				"999999999"
 		);
 
-		assertThat(response.equals("Signed up perfectly)"));
-	}
-	@Test
-	 void testJpaRetrieve(){
 
-		Optional<Customer> wrapCustomer = customerRepository.findByEmail("testEmail2@gmail.com");
-		Customer existingCustomer = wrapCustomer.get();
-		assertThat(existingCustomer.getFname().equals("TestFname"));
+
+		when(customerRepository.findByEmail(updatedCustomer.getEmail())).thenReturn(Optional.of(existingCustomer));
+		when(customerRepository.save(existingCustomer)).thenReturn(existingCustomer);
+		assertEquals( "updatedAnurag" , customerService.updateCustomer(updatedCustomer).getFname() );
+
 	}
+
+
 	@Test
-	 void testUpdate(){
-		Customer newCustomer = new Customer(
-				"updatedTestFname",
-				"updatedTestLname",
-				"updatedTestAddress",
-				"99999999999",
+	void testLoadUserByUsername(){
+
+		Customer customer = new Customer("Anurag",
+				"Panwar",
+				"Colony 123",
+				"1234567890",
 				Gender.MALE,
-				"updatedTestPassword",
-				"testEmail2@gmail.com",
+				"password",
+				"anu10300@gmail.com",
 				CustomerRole.USER
 		);
 
-		Optional<Customer> wrapperCustomer = customerRepository.findByEmail(newCustomer.getEmail());
-		Customer  existingCustomer = wrapperCustomer.get();
-		existingCustomer.setAddress(newCustomer.getAddress());
-		existingCustomer.setFname(newCustomer.getFname());
-		existingCustomer.setLname(newCustomer.getLname());
-		existingCustomer.setPhoneNumber(newCustomer.getPhoneNumber());
-		existingCustomer.setGender(newCustomer.getGender());
-		customerRepository.save(existingCustomer);
+		Optional<Customer> optCus = Optional.of(customer);
 
-		Optional<Customer> newWrapperCustomer = customerRepository.findByEmail(newCustomer.getEmail());
-		Customer updatedCustomer = newWrapperCustomer.get();
+		when(customerRepository.findByEmail(customer.getEmail())).thenReturn(optCus);
 
-		assertThat(updatedCustomer.getFname().equals("updatedTestFname"));
+		assertEquals("Anurag" , optCus.get().getFname());
 
 	}
+
+	@Test
+	void testDeleteCustomerByEmailId(){
+
+
+		Customer customer = new Customer(
+				11234L,
+				"Anurag",
+				"Panwar",
+				"Colony 123",
+				"1234567890",
+				Gender.MALE,
+				"password",
+				"anu10300@gmail.com",
+				CustomerRole.USER
+		);
+
+		String email = "anu10300@gmail.com";
+
+		Optional<Customer> optCus = Optional.of(customer);
+		when(customerRepository.findByEmail(email)).thenReturn(optCus);
+		String response = customerService.deleteCustomerByEmailId(email);
+		verify(customerRepository, times(1)).deleteById(customer.getId());
+
+
+	}
+
+	@Test
+	void testGetUsername(){
+
+		Customer customer = new Customer("Anurag",
+				"Panwar",
+				"Colony 123",
+				"1234567890",
+				Gender.MALE,
+				"password",
+				"anu10300@gmail.com",
+				CustomerRole.USER );
+
+		assertEquals("anu10300@gmail.com" , customer.getUsername());
+
+	}
+
+	@Autowired
+	private EmailValidator validator;
+
+	@Test
+	void testEmailValidator(){
+		String email = "anu10300@gmail.com";
+
+		assertEquals(true , validator.test(email));
+	}
+
+	@Autowired
+	RegistrationController controller;
+
+
+
+	@Test
+	void testRegisterEmailValidation(){
+		
+
+		RegistrationRequest updatedCustomer = new RegistrationRequest(
+				"Anurag",
+				"Panwar",
+				"1234",
+				"password",
+				"Colony 123",
+				35,
+				Gender.MALE,
+				"1234567890"
+		);
+
+		String expected = "Email Not Valid!";
+
+
+		Exception thrown =    assertThrows(IllegalStateException.class , ()-> {
+			controller.register(updatedCustomer);
+		});
+
+		assertEquals(thrown.getMessage() , expected);
+
+	}
+
+	@Test
+	void testCustomerExpiration(){
+
+		Customer customer = new Customer("Anurag",
+				"Panwar",
+				"Colony 123",
+				"1234567890",
+				Gender.MALE,
+				"password",
+				"anu10300@gmail.com",
+				CustomerRole.USER );
+
+		assertEquals(true , customer.isAccountNonExpired());
+
+	}
+
+	@Test
+	void testCustomerLock(){
+
+		Customer customer = new Customer("Anurag",
+				"Panwar",
+				"Colony 123",
+				"1234567890",
+				Gender.MALE,
+				"password",
+				"anu10300@gmail.com",
+				CustomerRole.USER );
+
+		assertEquals(true , customer.isAccountNonLocked());
+
+	}
+
+	@Test
+	void testCustomerCredentialExpiration(){
+
+		Customer customer = new Customer("Anurag",
+				"Panwar",
+				"Colony 123",
+				"1234567890",
+				Gender.MALE,
+				"password",
+				"anu10300@gmail.com",
+				CustomerRole.USER );
+
+		assertEquals(true , customer.isCredentialsNonExpired());
+
+	}
+
+	@Test
+	void testCustomerAccountEnabled(){
+
+		Customer customer = new Customer("Anurag",
+				"Panwar",
+				"Colony 123",
+				"1234567890",
+				Gender.MALE,
+				"password",
+				"anu10300@gmail.com",
+				CustomerRole.USER );
+
+		assertEquals(true , customer.isEnabled());
+
+	}
+
+	@Test
+	void testAuthorityPresence(){
+		Customer customer = new Customer("Anurag",
+				"Panwar",
+				"Colony 123",
+				"1234567890",
+				Gender.MALE,
+				"password",
+				"anu10300@gmail.com",
+				CustomerRole.USER );
+
+		List<GrantedAuthority> list = (List<GrantedAuthority>) customer.getAuthorities();
+		assertEquals(false , list.isEmpty());
+
+	}
+
+	@Test
+	void testRegistrationRequestToString(){
+		RegistrationRequest updatedCustomer = new RegistrationRequest(
+				"Anurag",
+				"Panwar",
+				"1234",
+				"password",
+				"Colony 123",
+				35,
+				Gender.MALE,
+				"1234567890"
+		);
+		assertEquals("RegistrationRequest(fname=Anurag, lname=Panwar, email=1234, password=password, address=Colony 123, age=35, gender=MALE, phone=1234567890)" , updatedCustomer.toString());
+	}
+
+	@Test
+	void testCustomerToString(){
+		Customer customer = new Customer("Anurag",
+				"Panwar",
+				"Colony 123",
+				"1234567890",
+				Gender.MALE,
+				"password",
+				"anu10300@gmail.com",
+				CustomerRole.USER );
+		assertEquals("Customer(id=null, fname=Anurag, lname=Panwar, address=Colony 123, phoneNumber=1234567890, gender=MALE, password=password, email=anu10300@gmail.com, customerRole=USER, locked=false, enabled=true)" , customer.toString());
+	}
+
+
 
 }

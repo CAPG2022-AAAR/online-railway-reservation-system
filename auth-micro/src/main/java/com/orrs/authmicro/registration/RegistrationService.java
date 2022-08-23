@@ -14,11 +14,9 @@ public class RegistrationService {
     private final CustomerService customerService;
     private EmailValidator emailValidator;
 
-    public String register(RegistrationRequest request) {
+    public Customer register(RegistrationRequest request) {
+
         boolean isValidEmail = emailValidator.test(request.getEmail());
-
-
-
         if(!isValidEmail){
             throw new IllegalStateException("Email Not Valid!");
         }

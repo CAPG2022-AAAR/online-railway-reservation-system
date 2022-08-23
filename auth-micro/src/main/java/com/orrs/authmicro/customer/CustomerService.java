@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
+
 import java.util.Optional;
 
 @Service
@@ -29,9 +29,12 @@ public class CustomerService implements UserDetailsService {
         return customerRepository.findByEmail(email)
                 .orElseThrow(()-> new UsernameNotFoundException(String.format(USERNOTFOUND,email)));
     }
-    public String signUpCustomer(Customer customer){
+    public Customer signUpCustomer(Customer customer){
+        String RES = "testRegister() was here";
+
         boolean customerExists = customerRepository.findByEmail(customer.getEmail())
                 .isPresent();
+
         if(customerExists){
             throw new IllegalStateException("User with Email already exist!");
         }
@@ -51,32 +54,20 @@ public class CustomerService implements UserDetailsService {
 
         String encodedPassword = bCryptPasswordEncoder.encode(customer.getPassword());
         customer.setPassword(encodedPassword);
-        customerRepository.save(customer);
 
-        return "Signed up perfectly";
+        return customerRepository.save(customer);
     }
 
-    public String currentUsername(Principal principal){
-        return principal.getName();
-    }
 
 
 
 
     public Customer updateCustomer(RegistrationRequest customer){
 
-
-
-
-
         boolean customerExists = customerRepository.findByEmail(customer.getEmail()).isPresent();
-
         Customer  existingCustomer = null;
-        
         if(customerExists){
-
             Optional<Customer> wrapperCustomer = customerRepository.findByEmail(customer.getEmail());
-            
             if(wrapperCustomer.isPresent()){
                 existingCustomer = wrapperCustomer.get();
                 existingCustomer.setAddress(customer.getAddress());
@@ -86,11 +77,7 @@ public class CustomerService implements UserDetailsService {
                 existingCustomer.setGender(customer.getGender());
                 customerRepository.save(existingCustomer);
             }
-                 
-               
-                return existingCustomer;
-
-
+            return existingCustomer;
         }else{
             throw new IllegalStateException("User doesn't exist");
         }
@@ -106,8 +93,6 @@ public class CustomerService implements UserDetailsService {
                 customerRepository.deleteById(existingCustomer.getId());
 
                 return "Customer Deleted Successfully!";
-
-
 
         }else{
             throw new IllegalStateException("User Not Found");
