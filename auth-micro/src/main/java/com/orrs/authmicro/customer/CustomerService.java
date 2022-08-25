@@ -30,7 +30,7 @@ public class CustomerService implements UserDetailsService {
                 .orElseThrow(()-> new UsernameNotFoundException(String.format(USERNOTFOUND,email)));
     }
     public Customer signUpCustomer(Customer customer){
-        String RES = "testRegister() was here";
+
 
         boolean customerExists = customerRepository.findByEmail(customer.getEmail())
                 .isPresent();
