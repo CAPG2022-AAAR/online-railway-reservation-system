@@ -1,0 +1,21 @@
+server:
+  port: 8081
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  application:
+    name: booking-service
+  datasource:
+    password: 1234
+    url: jdbc:postgresql://localhost:5433/registration
+    username: postgres
+  jpa:
+    generate-ddl: true
+    properties:
+        hibernate:
+          ddl-auto: update
+          dialect: org.hibernate.dialect.PostgreSQL94Dialect
+          format_sql: true
+    show-sql: true
