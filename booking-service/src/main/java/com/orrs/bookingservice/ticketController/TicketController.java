@@ -1,13 +1,13 @@
 package com.orrs.bookingservice.ticketController;
 
-import com.orrs.bookingservice.ticketDetails.TicketDetails;
+// import com.orrs.bookingservice.ticketDetails.TicketDetails;
 import com.orrs.bookingservice.ticketDetails.TicketRequest;
 import com.orrs.bookingservice.ticketService.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+// import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+// import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/ticket_details")
@@ -23,8 +23,8 @@ public class TicketController {
 
     }
 
-    /*
-       @GetMapping("/api/v1/ticket")
+
+    /*      @GetMapping("/api/v1/ticket")
        private List<TicketDetails> getAllTicketDetails() {
 
             return ticketService.getAllTicketDetails();
@@ -45,7 +45,7 @@ public class TicketController {
     }
 */
 
-    //  creating a delete mapping that deletes a specified ticket
+    //  creating delete mapping that deletes a specified ticket
 
     @DeleteMapping("/delete/{id}")
     private void deleteTicketDetails(@PathVariable("id") int id) {

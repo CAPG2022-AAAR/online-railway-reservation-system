@@ -28,8 +28,6 @@ public class TicketDetails {
     private Long c_id;
     private int age;
     private Long train_number;
-
-
     private Long source_id;
     private Long destination_id;
     private int departure_time;
