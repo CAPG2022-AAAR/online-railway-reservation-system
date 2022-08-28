@@ -1,10 +1,14 @@
 package com.orrs.availabletraininfo.controller;
 
 
+import com.orrs.availabletraininfo.trainDetails.AvailableTrainDTO;
 import com.orrs.availabletraininfo.trainDetails.TrainRequest;
+import com.orrs.availabletraininfo.trainDetails.Train_details;
 import com.orrs.availabletraininfo.trainService.TrainServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/train_details")
@@ -24,4 +28,13 @@ public class TrainDetailsController {
         return trainServices.saveTrainDetails(trainRequest).getT_id();
 
     }
+
+    @PostMapping("/traindetails")
+    private List<Train_details> trainDetails(@RequestBody AvailableTrainDTO availableTrainDTO){
+
+        return trainServices.getTrainDetails(availableTrainDTO);
+
+    }
+
+
 }

@@ -1,11 +1,14 @@
 package com.orrs.availabletraininfo.trainService;
 
+import com.orrs.availabletraininfo.trainDetails.AvailableTrainDTO;
 import com.orrs.availabletraininfo.trainDetails.TrainRequest;
 import com.orrs.availabletraininfo.trainDetails.Train_details;
 import com.orrs.availabletraininfo.trainDetailsRepository.TrainDetailsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -26,4 +29,9 @@ public class TrainServices {
                 train_details.getE_time()
                 ));
     }
+
+    public List<Train_details> getTrainDetails(AvailableTrainDTO availableTrainDTO){
+        return trainDetailsRepository.findAll();
+    }
+
 }
