@@ -41,7 +41,7 @@ public class TrainDetailsController {
 
     @PostMapping("/trainarrivaldetails")
     private Long saveTrainArrivalDetails(@RequestBody TrainArrivalDetails trainArrivalDetails) {
-        return  trainServices.saveTrainArrivalDeatils(trainArrivalDetails).getStationId();
+        return  trainServices.saveTrainArrivalDetails(trainArrivalDetails).getStationId();
     }
 
     @PostMapping("/traindeparturedetails")
