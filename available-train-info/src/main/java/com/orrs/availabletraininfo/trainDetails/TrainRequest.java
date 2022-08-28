@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @NoArgsConstructor
 public class TrainRequest {
+    private long t_id;
     private String t_name;
     private int t_coach;
     private int t_seat;

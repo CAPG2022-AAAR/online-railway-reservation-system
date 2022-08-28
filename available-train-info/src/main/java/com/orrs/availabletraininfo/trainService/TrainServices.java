@@ -17,6 +17,7 @@ public class TrainServices {
     // saving a specific record by using the method save() of crud repository
     public Train_details saveTrainDetails(TrainRequest train_details) {
         return trainDetailsRepository.save(new Train_details(
+                train_details.getT_id(),
                 train_details.getT_name(),
                 train_details.getT_coach(),
                 train_details.getT_seat(),

@@ -17,7 +17,6 @@ import javax.persistence.*;
 public class Train_details {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long t_id;  //primary key
     private String t_name;
     private int t_coach;
@@ -26,7 +25,8 @@ public class Train_details {
     private int s_time;
     private int e_time;
 
-    public Train_details(String t_name, int t_coach, int t_seat, int t_fare, int s_time, int e_time) {
+    public Train_details(Long t_id, String t_name, int t_coach, int t_seat, int t_fare, int s_time, int e_time) {
+        this.t_id = t_id;
         this.t_name = t_name;
         this.t_coach = t_coach;
         this.t_seat = t_seat;
