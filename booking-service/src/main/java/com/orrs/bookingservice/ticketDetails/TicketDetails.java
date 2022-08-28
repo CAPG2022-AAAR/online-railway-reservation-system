@@ -46,5 +46,7 @@ public class TicketDetails {
         this.destination_id = destination_id;
         this.departure_time = departure_time;
         }
-    }
+
+
+}
 

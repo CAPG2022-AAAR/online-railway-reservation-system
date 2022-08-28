@@ -1,13 +1,14 @@
 package com.orrs.bookingservice.ticketController;
 
 // import com.orrs.bookingservice.ticketDetails.TicketDetails;
+import com.orrs.bookingservice.ticketDetails.TicketDetails;
 import com.orrs.bookingservice.ticketDetails.TicketRequest;
 import com.orrs.bookingservice.ticketService.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-// import java.util.List;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/ticket_details")

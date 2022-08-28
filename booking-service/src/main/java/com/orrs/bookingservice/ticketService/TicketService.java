@@ -17,7 +17,7 @@ import java.util.List;
 public class TicketService {
 
     @Autowired
-    TicketRepository ticketRepository;
+    private TicketRepository ticketRepository;
 
 /*
     // getting all the ticket records by using the method findAll() of Crud Repository
