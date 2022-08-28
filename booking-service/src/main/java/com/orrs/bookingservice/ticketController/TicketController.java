@@ -32,8 +32,8 @@ public class TicketController {
     */
     // creating a post mapping that will post the ticket details in the database
     @PostMapping("/create")
-    private Long saveTicketDetails(@RequestBody TicketRequest ticketRequest) {
-        return ticketService.saveTicketDetails(ticketRequest).getPnr();
+    public TicketDetails saveTicketDetails(@RequestBody TicketRequest ticketRequest) {
+        return ticketService.saveTicketDetails(ticketRequest);
 
     }
 

@@ -1,12 +1,12 @@
 server:
-  port: 8081
+  port: 8082
   error:
     include-message: always
     include-binding-errors: always
 
 spring:
   application:
-    name: booking-service
+    name: payment-service
   datasource:
     password: 12345
     url: jdbc:postgresql://localhost:5432/registration
@@ -14,8 +14,8 @@ spring:
   jpa:
     generate-ddl: true
     properties:
-        hibernate:
-          ddl-auto: update
-          dialect: org.hibernate.dialect.PostgreSQL94Dialect
-          format_sql: true
+      hibernate:
+        ddl-auto: update
+        dialect: org.hibernate.dialect.PostgreSQL94Dialect
+        format_sql: true
     show-sql: true
