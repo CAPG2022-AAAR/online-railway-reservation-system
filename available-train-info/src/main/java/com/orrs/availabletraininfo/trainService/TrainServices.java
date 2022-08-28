@@ -1,8 +1,6 @@
 package com.orrs.availabletraininfo.trainService;
 
-import com.orrs.availabletraininfo.trainDetails.AvailableTrainDTO;
-import com.orrs.availabletraininfo.trainDetails.TrainRequest;
-import com.orrs.availabletraininfo.trainDetails.Train_details;
+import com.orrs.availabletraininfo.trainDetails.*;
 import com.orrs.availabletraininfo.trainDetailsRepository.TrainDetailsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,4 +32,20 @@ public class TrainServices {
         return trainDetailsRepository.findAll();
     }
 
+    public TrainDepartureDetails saveTrainDepartureDetails(TrainDepartureDetails trainDepartureDetails) {
+        return null;
+
+    }
+
+    public StationDetails saveStationDetails(StationDetails stationDetails) {
+        return null;
+    }
+
+    public TrainArrivalDetails saveTrainArrivalDetails(TrainArrivalDetails trainArrivalDetails) {
+        return null;
+    }
+
+    public TrainSchedule saveTrainSchedule(TrainSchedule trainSchedule) {
+        return null;
+    }
 }

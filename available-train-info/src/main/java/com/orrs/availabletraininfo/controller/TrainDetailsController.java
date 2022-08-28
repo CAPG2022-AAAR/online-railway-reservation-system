@@ -1,9 +1,7 @@
 package com.orrs.availabletraininfo.controller;
 
 
-import com.orrs.availabletraininfo.trainDetails.AvailableTrainDTO;
-import com.orrs.availabletraininfo.trainDetails.TrainRequest;
-import com.orrs.availabletraininfo.trainDetails.Train_details;
+import com.orrs.availabletraininfo.trainDetails.*;
 import com.orrs.availabletraininfo.trainService.TrainServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +32,26 @@ public class TrainDetailsController {
 
         return trainServices.getTrainDetails(availableTrainDTO);
 
+    }
+
+    @PostMapping("/stationdetails")
+    private Long saveStationDetails(@RequestBody StationDetails stationDetails) {
+        return  trainServices.saveStationDetails(stationDetails).getStationId();
+    }
+
+    @PostMapping("/trainarrivaldetails")
+    private Long saveTrainArrivalDetails(@RequestBody TrainArrivalDetails trainArrivalDetails) {
+        return  trainServices.saveTrainArrivalDeatils(trainArrivalDetails).getStationId();
+    }
+
+    @PostMapping("/traindeparturedetails")
+    private Long saveTrainDepartureDetails(@RequestBody TrainDepartureDetails trainDepartureDetails) {
+        return  trainServices.saveTrainDepartureDetails(trainDepartureDetails).getStationId();
+    }
+
+    @PostMapping("/trainschedule")
+    private Long saveTrainSchedule(@RequestBody TrainSchedule trainSchedule) {
+        return  trainServices.saveTrainSchedule(trainSchedule).getId();
     }
 
 
