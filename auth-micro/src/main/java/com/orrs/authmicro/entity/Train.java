@@ -17,6 +17,7 @@ public class Train {
     private String trainName;
     private int totalCoaches;
     private int totalSeats;
+    private int seatAvailable;
     private int trainFare;
     private int startTime;
     private int endTime;
