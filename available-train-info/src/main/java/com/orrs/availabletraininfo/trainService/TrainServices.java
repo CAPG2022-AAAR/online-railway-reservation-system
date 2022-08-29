@@ -1,6 +1,8 @@
 package com.orrs.availabletraininfo.trainService;
 
 import com.orrs.availabletraininfo.repositories.StationRepository;
+import com.orrs.availabletraininfo.repositories.TrainArrivalRepository;
+import com.orrs.availabletraininfo.repositories.TrainDepartureRepository;
 import com.orrs.availabletraininfo.repositories.TrainScheduleRepository;
 import com.orrs.availabletraininfo.trainDetails.*;
 import com.orrs.availabletraininfo.trainDetailsRepository.TrainDetailsRepository;
@@ -23,6 +25,12 @@ public class TrainServices {
     @Autowired
     TrainScheduleRepository trainScheduleRepository;
 
+    @Autowired
+    TrainArrivalRepository trainArrivalRepository;
+
+    @Autowired
+    TrainDepartureRepository trainDepartureRepository;
+
     // saving a specific record by using the method save() of crud repository
     public Train_details saveTrainDetails(TrainRequest train_details) {
         return trainDetailsRepository.save(new Train_details(
@@ -41,7 +49,11 @@ public class TrainServices {
     }
 
     public TrainDepartureDetails saveTrainDepartureDetails(TrainDepartureRequest trainDepartureDetails) {
-        return null;
+        return trainDepartureRepository.save(new TrainDepartureDetails(
+                trainDepartureDetails.getStationId(),
+                trainDepartureDetails.getTrainId(),
+                trainDepartureDetails.getDepartureTime()
+        ));
 
     }
 
@@ -52,8 +64,15 @@ public class TrainServices {
         ));
     }
 
-    public TrainArrivalDetails saveTrainArrivalDetails(TrainArrivalRequest trainArrivalDetails) {
-        return null;
+    public TrainArrivalDetails saveTrainArrivalDetails(TrainArrivalRequest trainArrivalRequest) {
+
+
+
+        return trainArrivalRepository.save(new TrainArrivalDetails(
+             trainArrivalRequest.getStationId(),
+                trainArrivalRequest.getTrainId(),
+                trainArrivalRequest.getArrivalTime()
+        ));
     }
 
     public TrainSchedule saveTrainSchedule(TrainScheduleRequest trainSchedule) {

@@ -6,9 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -19,13 +17,15 @@ import javax.persistence.Table;
 public class TrainDepartureDetails {
 
     @Id
-    private long StationId; //primary key
-    private long TrainId;
-    private long DepartureTime;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long e_id;
+    private long stationId; //primary key
+    private long trainId;
+    private long departureTime;
 
     public TrainDepartureDetails(long stationId, long trainId, long departureTime) {
-        StationId = stationId;
-        TrainId = trainId;
-        DepartureTime = departureTime;
+        this.stationId = stationId;
+        this.trainId = trainId;
+        this.departureTime = departureTime;
     }
 }

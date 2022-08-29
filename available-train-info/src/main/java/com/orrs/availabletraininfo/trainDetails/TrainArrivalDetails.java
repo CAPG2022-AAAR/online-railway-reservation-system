@@ -1,17 +1,13 @@
 package com.orrs.availabletraininfo.trainDetails;
 
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
@@ -19,13 +15,16 @@ import javax.persistence.Table;
 public class TrainArrivalDetails {
 
     @Id
-    private long StationId; //primary key
-    private long TrainId;
-    private long ArrivalTime;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long e_id;
+
+    private long stationId;
+    private long trainId;
+    private long arrivalTime;
 
     public TrainArrivalDetails(long stationId, long trainId, long arrivalTime) {
-        StationId = stationId;
-        TrainId = trainId;
-        ArrivalTime = arrivalTime;
+       this.stationId = stationId;
+        this.trainId = trainId;
+        this.arrivalTime = arrivalTime;
     }
 }

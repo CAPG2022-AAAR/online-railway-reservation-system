@@ -40,13 +40,13 @@ public class TrainDetailsController {
     }
 
     @PostMapping("/trainarrivaldetails")
-    private Long saveTrainArrivalDetails(@RequestBody TrainArrivalRequest trainArrivalRequest) {
-        return  trainServices.saveTrainArrivalDetails(trainArrivalRequest).getStationId();
+    private TrainArrivalDetails saveTrainArrivalDetails(@RequestBody TrainArrivalRequest trainArrivalRequest) {
+        return  trainServices.saveTrainArrivalDetails(trainArrivalRequest);
     }
 
     @PostMapping("/traindeparturedetails")
-    private Long saveTrainDepartureDetails(@RequestBody TrainDepartureRequest trainDepartureRequest) {
-        return  trainServices.saveTrainDepartureDetails(trainDepartureRequest).getStationId();
+    private TrainDepartureDetails saveTrainDepartureDetails(@RequestBody TrainDepartureRequest trainDepartureRequest) {
+        return  trainServices.saveTrainDepartureDetails(trainDepartureRequest);
     }
 
     @PostMapping("/trainschedule")

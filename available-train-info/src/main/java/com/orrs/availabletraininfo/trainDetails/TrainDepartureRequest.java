@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class TrainDepartureRequest {
-    private long StationId;
-    private long TrainId;
-    private long DepartureTime;
+    private long stationId;
+    private long trainId;
+    private long departureTime;
 }

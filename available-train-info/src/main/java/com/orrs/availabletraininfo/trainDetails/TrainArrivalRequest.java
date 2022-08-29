@@ -1,18 +1,16 @@
 package com.orrs.availabletraininfo.trainDetails;
 
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 public class TrainArrivalRequest {
 
-    private long StationId;
-    private long TrainId;
-    private long ArrivalTime;
+    private long stationId;
+    private long trainId;
+    private long arrivalTime;
 }
