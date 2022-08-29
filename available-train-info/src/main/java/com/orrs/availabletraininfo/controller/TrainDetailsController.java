@@ -35,18 +35,18 @@ public class TrainDetailsController {
     }
 
     @PostMapping("/stationdetails")
-    private StationDetails saveStationDetails(@RequestBody StationRequest stationDetails) {
+    private  StationDetails saveStationDetails(@RequestBody StationRequest stationDetails) {
         return  trainServices.saveStationDetails(stationDetails);
     }
 
     @PostMapping("/trainarrivaldetails")
-    private Long saveTrainArrivalDetails(@RequestBody TrainArrivalDetails trainArrivalDetails) {
-        return  trainServices.saveTrainArrivalDetails(trainArrivalDetails).getStationId();
+    private Long saveTrainArrivalDetails(@RequestBody TrainArrivalRequest trainArrivalRequest) {
+        return  trainServices.saveTrainArrivalDetails(trainArrivalRequest).getStationId();
     }
 
     @PostMapping("/traindeparturedetails")
-    private Long saveTrainDepartureDetails(@RequestBody TrainDepartureDetails trainDepartureDetails) {
-        return  trainServices.saveTrainDepartureDetails(trainDepartureDetails).getStationId();
+    private Long saveTrainDepartureDetails(@RequestBody TrainDepartureRequest trainDepartureRequest) {
+        return  trainServices.saveTrainDepartureDetails(trainDepartureRequest).getStationId();
     }
 
     @PostMapping("/trainschedule")

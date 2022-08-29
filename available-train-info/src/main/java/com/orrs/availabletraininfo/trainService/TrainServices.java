@@ -1,6 +1,5 @@
 package com.orrs.availabletraininfo.trainService;
 
-import com.netflix.discovery.converters.Auto;
 import com.orrs.availabletraininfo.repositories.StationRepository;
 import com.orrs.availabletraininfo.repositories.TrainScheduleRepository;
 import com.orrs.availabletraininfo.trainDetails.*;
@@ -41,7 +40,7 @@ public class TrainServices {
         return trainDetailsRepository.findAll();
     }
 
-    public TrainDepartureDetails saveTrainDepartureDetails(TrainDepartureDetails trainDepartureDetails) {
+    public TrainDepartureDetails saveTrainDepartureDetails(TrainDepartureRequest trainDepartureDetails) {
         return null;
 
     }
@@ -53,7 +52,7 @@ public class TrainServices {
         ));
     }
 
-    public TrainArrivalDetails saveTrainArrivalDetails(TrainArrivalDetails trainArrivalDetails) {
+    public TrainArrivalDetails saveTrainArrivalDetails(TrainArrivalRequest trainArrivalDetails) {
         return null;
     }
 
