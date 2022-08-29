@@ -28,10 +28,8 @@ public class TrainDetailsController {
     }
 
     @PostMapping("/traindetails")
-    private List<Train_details> trainDetails(@RequestBody AvailableTrainDTO availableTrainDTO){
-
+    private List<Long> trainDetails(@RequestBody AvailableTrainDTO availableTrainDTO){
         return trainServices.getTrainDetails(availableTrainDTO);
-
     }
 
     @PostMapping("/stationdetails")

@@ -9,8 +9,8 @@ import lombok.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 public class AvailableTrainDTO {
-    private String source;
-    private String destination;
+    private long source_id;
+    private long destination_id;
 
     //TODO: change day to date and then get day from that date
 

@@ -13,4 +13,6 @@ public class TrainArrivalRequest {
     private long stationId;
     private long trainId;
     private long arrivalTime;
+    private long departureTime;
+    private int stopNumber;
 }

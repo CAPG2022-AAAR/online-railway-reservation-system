@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,8 +45,133 @@ public class TrainServices {
                 ));
     }
 
-    public List<Train_details> getTrainDetails(AvailableTrainDTO availableTrainDTO){
-        return trainDetailsRepository.findAll();
+    public List<Long> getTrainDetails(AvailableTrainDTO availableTrainDTO){
+
+        List<Train_details> temp;
+        List<TrainSchedule> listOfAvailableTrainsOnADay;
+        List<Long> listOfTrainNumbers = new ArrayList<>();
+        List<Long> listOfTrainNumbersRunningOnADay = new ArrayList<>();
+        List<TrainArrivalDetails> trainArrivalDetails = trainArrivalRepository.findAll();
+
+
+        String day = availableTrainDTO.getDay();
+
+        switch(day) {
+            case "Monday":
+
+              listOfAvailableTrainsOnADay =   trainScheduleRepository.findAll();
+                for( int i = 0 ; i<listOfAvailableTrainsOnADay.size() ; i++  ){
+                    if(listOfAvailableTrainsOnADay.get(i).isMonday()){
+                        listOfTrainNumbers.add(listOfAvailableTrainsOnADay.get(i).getT_id());
+                    }
+                }
+                break;
+            case "Tuesday":
+
+                listOfAvailableTrainsOnADay =   trainScheduleRepository.findAll();
+                for( int i = 0 ; i<listOfAvailableTrainsOnADay.size() ; i++  ){
+                    if(listOfAvailableTrainsOnADay.get(i).isTuesday()){
+                        listOfTrainNumbers.add(listOfAvailableTrainsOnADay.get(i).getT_id());
+                    }
+                }
+
+
+                break;
+            case "Wednesday":
+
+                listOfAvailableTrainsOnADay =   trainScheduleRepository.findAll();
+                for( int i = 0 ; i<listOfAvailableTrainsOnADay.size() ; i++  ){
+                    if(listOfAvailableTrainsOnADay.get(i).isWednesday()){
+                        listOfTrainNumbers.add(listOfAvailableTrainsOnADay.get(i).getT_id());
+                    }
+                }
+
+                break;
+            case "Thursday":
+
+                listOfAvailableTrainsOnADay =   trainScheduleRepository.findAll();
+                for( int i = 0 ; i<listOfAvailableTrainsOnADay.size() ; i++  ){
+                    if(listOfAvailableTrainsOnADay.get(i).isThursday()){
+                        listOfTrainNumbers.add(listOfAvailableTrainsOnADay.get(i).getT_id());
+                    }
+                }
+
+                break;
+            case "Friday":
+
+                listOfAvailableTrainsOnADay =   trainScheduleRepository.findAll();
+                for( int i = 0 ; i<listOfAvailableTrainsOnADay.size() ; i++  ){
+                    if(listOfAvailableTrainsOnADay.get(i).isFriday()){
+                        listOfTrainNumbers.add(listOfAvailableTrainsOnADay.get(i).getT_id());
+                    }
+                }
+
+                break;
+            case "Saturday":
+
+                listOfAvailableTrainsOnADay =   trainScheduleRepository.findAll();
+                for( int i = 0 ; i<listOfAvailableTrainsOnADay.size() ; i++  ){
+                    if(listOfAvailableTrainsOnADay.get(i).isSaturday()){
+                        listOfTrainNumbers.add(listOfAvailableTrainsOnADay.get(i).getT_id());
+                    }
+                }
+
+                break;
+            case "Sunday":
+
+                listOfAvailableTrainsOnADay =   trainScheduleRepository.findAll();
+                for( int i = 0 ; i<listOfAvailableTrainsOnADay.size() ; i++  ){
+                    if(listOfAvailableTrainsOnADay.get(i).isSunday()){
+                        listOfTrainNumbers.add(listOfAvailableTrainsOnADay.get(i).getT_id());
+                    }
+                }
+
+                break;
+            default:
+                throw new IllegalStateException("Please enter a valid day");
+        }
+
+        for( int i  = 0 ; i < listOfTrainNumbers.size() ; i++){
+
+            long tempTrainNumber = listOfTrainNumbers.get(i);
+            System.out.println(tempTrainNumber);
+            int sourceStopNumber = 0 ;
+            int destinationStopNumber = 0 ;
+            boolean sourceFound = false;
+            boolean destinationFound = false;
+
+            for( int j = 0 ; j<trainArrivalDetails.size() ; j++ ){
+
+                if(trainArrivalDetails.get(j).getTrainId() == tempTrainNumber) {
+
+                    System.out.println(trainArrivalDetails.get(j).getStationId());
+                    System.out.println(availableTrainDTO.getSource_id());
+                    if( availableTrainDTO.getSource_id() == trainArrivalDetails.get(j).getStationId()) {
+                        System.out.println("Inside source matching if statement");
+                        sourceStopNumber = trainArrivalDetails.get(j).getStopNumber();
+                        sourceFound = true;
+                        System.out.println("Source found! ");
+                    }
+                    if(trainArrivalDetails.get(j).getStationId() == availableTrainDTO.getDestination_id()) {
+                        destinationStopNumber = trainArrivalDetails.get(j).getStopNumber();
+                        destinationFound = true;
+                        System.out.println("Destination found! ");
+                    }
+
+                    if(sourceFound && destinationFound){
+                        if(sourceStopNumber < destinationStopNumber){
+                            listOfTrainNumbersRunningOnADay.add(tempTrainNumber);
+                            sourceFound = false;
+                            destinationFound = false;
+                        }
+                    }
+                }
+            }
+
+        }
+
+
+        return listOfTrainNumbersRunningOnADay;
     }
 
     public TrainDepartureDetails saveTrainDepartureDetails(TrainDepartureRequest trainDepartureDetails) {
@@ -71,7 +197,9 @@ public class TrainServices {
         return trainArrivalRepository.save(new TrainArrivalDetails(
              trainArrivalRequest.getStationId(),
                 trainArrivalRequest.getTrainId(),
-                trainArrivalRequest.getArrivalTime()
+                trainArrivalRequest.getArrivalTime(),
+                trainArrivalRequest.getDepartureTime(),
+                trainArrivalRequest.getStopNumber()
         ));
     }
 
