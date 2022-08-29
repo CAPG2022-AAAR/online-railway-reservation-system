@@ -23,7 +23,7 @@ public class StationDetails {
     private String StationName;
 
     public StationDetails(long stationId, String stationName) {
-        StationId = stationId;
-        StationName = stationName;
+        this.StationId = stationId;
+        this.StationName = stationName;
     }
 }

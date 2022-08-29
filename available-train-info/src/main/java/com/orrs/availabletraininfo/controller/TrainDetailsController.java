@@ -35,8 +35,8 @@ public class TrainDetailsController {
     }
 
     @PostMapping("/stationdetails")
-    private Long saveStationDetails(@RequestBody StationDetails stationDetails) {
-        return  trainServices.saveStationDetails(stationDetails).getStationId();
+    private StationDetails saveStationDetails(@RequestBody StationRequest stationDetails) {
+        return  trainServices.saveStationDetails(stationDetails);
     }
 
     @PostMapping("/trainarrivaldetails")
@@ -50,8 +50,8 @@ public class TrainDetailsController {
     }
 
     @PostMapping("/trainschedule")
-    private Long saveTrainSchedule(@RequestBody TrainSchedule trainSchedule) {
-        return  trainServices.saveTrainSchedule(trainSchedule).getId();
+    private TrainSchedule saveTrainSchedule(@RequestBody TrainScheduleRequest trainSchedule) {
+        return  trainServices.saveTrainSchedule(trainSchedule);
     }
 
 

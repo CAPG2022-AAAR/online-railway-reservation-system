@@ -1,20 +1,17 @@
 package com.orrs.availabletraininfo.trainDetails;
 
 
-import lombok.*;
-
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
-@EqualsAndHashCode
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "train_schedule")
-public class TrainSchedule {
+@NoArgsConstructor
+@EqualsAndHashCode
+public class TrainScheduleRequest {
 
-    @Id
     private long t_id;
     private boolean monday;
     private boolean tuesday;
@@ -23,6 +20,5 @@ public class TrainSchedule {
     private boolean friday;
     private boolean saturday;
     private boolean sunday;
-
 
 }

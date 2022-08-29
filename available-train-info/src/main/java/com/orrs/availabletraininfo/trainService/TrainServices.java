@@ -1,5 +1,8 @@
 package com.orrs.availabletraininfo.trainService;
 
+import com.netflix.discovery.converters.Auto;
+import com.orrs.availabletraininfo.repositories.StationRepository;
+import com.orrs.availabletraininfo.repositories.TrainScheduleRepository;
 import com.orrs.availabletraininfo.trainDetails.*;
 import com.orrs.availabletraininfo.trainDetailsRepository.TrainDetailsRepository;
 import lombok.AllArgsConstructor;
@@ -14,6 +17,12 @@ public class TrainServices {
 
     @Autowired
     TrainDetailsRepository trainDetailsRepository;
+
+    @Autowired
+    StationRepository stationRepository;
+
+    @Autowired
+    TrainScheduleRepository trainScheduleRepository;
 
     // saving a specific record by using the method save() of crud repository
     public Train_details saveTrainDetails(TrainRequest train_details) {
@@ -37,15 +46,27 @@ public class TrainServices {
 
     }
 
-    public StationDetails saveStationDetails(StationDetails stationDetails) {
-        return null;
+    public StationDetails saveStationDetails(StationRequest stationDetails) {
+        return stationRepository.save(new StationDetails(
+                stationDetails.getStationId(),
+                stationDetails.getStationName()
+        ));
     }
 
     public TrainArrivalDetails saveTrainArrivalDetails(TrainArrivalDetails trainArrivalDetails) {
         return null;
     }
 
-    public TrainSchedule saveTrainSchedule(TrainSchedule trainSchedule) {
-        return null;
+    public TrainSchedule saveTrainSchedule(TrainScheduleRequest trainSchedule) {
+        return trainScheduleRepository.save(new TrainSchedule(
+                trainSchedule.getT_id(),
+                trainSchedule.isMonday(),
+                trainSchedule.isTuesday(),
+                trainSchedule.isWednesday(),
+                trainSchedule.isThursday(),
+                trainSchedule.isFriday(),
+                trainSchedule.isSaturday(),
+                trainSchedule.isSunday()
+        ));
     }
 }
