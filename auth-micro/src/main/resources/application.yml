@@ -5,6 +5,9 @@ server:
     include-binding-errors: always
 
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   application:
     name: home-page-service
   datasource:
