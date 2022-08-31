@@ -1,8 +1,6 @@
 package com.orrs.bookingservice.ticketController;
 
 
-import com.orrs.bookingservice.emailDetails.EmailDetails;
-import com.orrs.bookingservice.ticketDetails.TicketDetails;
 import com.orrs.bookingservice.ticketDetails.TicketRequest;
 import com.orrs.bookingservice.ticketService.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +31,7 @@ public class TicketController {
     */
     // creating a post mapping that will post the ticket details in the database
     @PostMapping("/create")
-    public TicketDetails saveTicketDetails(@RequestBody TicketRequest ticketRequest) {
+    public String saveTicketDetails(@RequestBody TicketRequest ticketRequest) {
         return ticketService.saveTicketDetails(ticketRequest);
 
     }

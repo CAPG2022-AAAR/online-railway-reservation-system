@@ -1,9 +1,7 @@
 package com.orrs.bookingservice.emailDetails;
 
-public interface EmailService {
+public interface EmailService1 {
 
-    // Method
-    // To send a simple email
+    // To share a ticket pnr mail
     String sendSimpleMail(EmailDetails details);
-
 }

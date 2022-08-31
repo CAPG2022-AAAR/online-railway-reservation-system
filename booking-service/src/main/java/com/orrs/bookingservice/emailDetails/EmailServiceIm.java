@@ -6,9 +6,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-
 @Service
-public class EmailServiceImp implements EmailService{
+public class EmailServiceIm implements EmailService1{
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -19,12 +18,10 @@ public class EmailServiceImp implements EmailService{
 
     @Override
     public String sendSimpleMail(EmailDetails details) {
-
         try {
 
             // Creating a simple mail message
-            SimpleMailMessage mailMessage
-                    = new SimpleMailMessage();
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
 
             // Setting up necessary details
             mailMessage.setFrom(sender);
@@ -42,6 +39,4 @@ public class EmailServiceImp implements EmailService{
             return "Error while Sending Mail";
         }
     }
-
 }
-
