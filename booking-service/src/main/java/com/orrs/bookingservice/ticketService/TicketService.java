@@ -62,7 +62,7 @@ public class TicketService {
         String Message = "Your Ticket details are" + createdTicket.getPnr();
 
 
-        EmailDetails details = null;
+        EmailDetails details = new EmailDetails();
         details.setMsgBody(Message);
         details.setRecipient("anu10300@gmail.com");
         details.setSubject("");

@@ -11,12 +11,12 @@ spring:
   mail:
     host: smtp.gmail.com
     port:   587
-    username: bookingservice@gmail.com
-    password: Booking@123
+    username:
+    password:
     properties:
       mail:
         smtp:
-          auth:
+          auth: true
           starttls:
             enable: true
   application:
