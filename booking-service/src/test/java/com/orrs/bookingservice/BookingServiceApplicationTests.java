@@ -17,10 +17,10 @@ import static org.mockito.Mockito.when;
 class BookingServiceApplicationTests {
 
 	@Autowired
-	TicketService ticketService;
+	private TicketService ticketService;
 
 	@MockBean
-	TicketRepository ticketRepository;
+	private TicketRepository ticketRepository;
 
 
 	@Test
@@ -42,6 +42,7 @@ class BookingServiceApplicationTests {
 				637
 		);
 
+<<<<<<< HEAD
 		TicketDetails ticketDetails3 = new TicketDetails(
 
 				"Akhil",
@@ -77,5 +78,38 @@ class BookingServiceApplicationTests {
 		when(ticketRepository.save(ticketDetails3)).thenReturn(ticketDetail);
 		assertEquals("Akhil",ticketService.saveTicketDetails(ticketRequest1).getF_name());
 	}
+=======
+		TicketDetails ticketDetails = new TicketDetails(
+				"Aman",
+				"Singh",
+				"male",
+				"lucknow",
+				5,
+				1084,
+				222L,
+				15,
+				14277L,
+				1536L,
+				857L,
+				657);
+
+		TicketRequest ticketRequest = new TicketRequest(
+				"Aman",
+				"Singh",
+				"male",
+				"lucknow",
+				5,
+				1084,
+				15,
+				222L,
+				14277L,
+				1536L,
+				857L,
+				657);
+
+
+		when(ticketRepository.save(ticketDetails)).thenReturn(ticketDetails);
+		assertEquals(222,ticketService.saveTicketDetails(ticketRequest).getC_id());
+>>>>>>> 96d0d05b60182515243160c7faec3baaeff495cc
 
 	}
