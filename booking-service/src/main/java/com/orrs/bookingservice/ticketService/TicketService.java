@@ -54,7 +54,7 @@ public class TicketService {
 
         String Message = "Your Ticket details are" + createdTicket.getPnr();
 
-        
+
 
         EmailDetail emailDetail = new EmailDetail();
         emailDetail.setMessageBody(Message);
