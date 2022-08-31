@@ -1,19 +1,17 @@
 package com.orrs.bookingservice;
 
+
 import com.orrs.bookingservice.ticketDetails.TicketDetails;
 import com.orrs.bookingservice.ticketDetails.TicketRequest;
 import com.orrs.bookingservice.ticketRepository.TicketRepository;
 import com.orrs.bookingservice.ticketService.TicketService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-
 
 @SpringBootTest
 class BookingServiceApplicationTests {
@@ -28,56 +26,56 @@ class BookingServiceApplicationTests {
 	@Test
 	void saveTicketDetails() {
 
+		TicketDetails ticketDetail = new TicketDetails(
+				1234L,
+				"Akhil",
+				"Sharma",
+				"Male",
+				"Lucknow",
+				4,
+				1892,
+				165L,
+				26,
+				14267L,
+				1542L,
+				847L,
+				637
+		);
 
-		TicketDetails ticketDetails1 = new TicketDetails(
-				12345L,
-				"Aman",
-				"Singh",
-				"male",
-				"lucknow",
-				5,
-				1084,
-				153L,
-				22,
-				14277L,
-				1536L,
-				857L,
-				657);
+		TicketDetails ticketDetails3 = new TicketDetails(
 
-		TicketDetails ticketDetails2 = new TicketDetails(
-				"Aman",
-				"Singh",
-				"male",
-				"lucknow",
-				5,
-				1084,
-				153L,
-				22,
-				14277L,
-				1536L,
-				857L,
-				657);
+				"Akhil",
+				"Sharma",
+				"Male",
+				"Lucknow",
+				4,
+				1892,
+				165L,
+				26,
+				14267L,
+				1542L,
+				847L,
+				637
+		);
 
-		TicketRequest ticketRequest = new TicketRequest(
-				"Aman",
-				"Singh",
-				"male",
-				"lucknow",
-				5,
-				1084,
-				22,
-				153L,
-				14277L,
-				1536L,
-				857L,
-				657);
+		TicketRequest ticketRequest1 = new TicketRequest(
+				"Akhil",
+				"Sharma",
+				"Male",
+				"Lucknow",
+				4,
+				1892,
+				26,
+				165L,
+				14267L,
+				1542L,
+				847L,
+				637
+		);
 
 
-		when(ticketRepository.save(ticketDetails2)).thenReturn(ticketDetails1);
-		assertEquals("Aman", ticketService.saveTicketDetails(ticketRequest).getF_name());
+		when(ticketRepository.save(ticketDetails3)).thenReturn(ticketDetail);
+		assertEquals("Akhil",ticketService.saveTicketDetails(ticketRequest1).getF_name());
+	}
 
 	}
-}
-
-
-
