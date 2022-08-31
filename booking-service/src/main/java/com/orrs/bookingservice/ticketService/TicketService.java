@@ -1,8 +1,8 @@
 package com.orrs.bookingservice.ticketService;
 
 
-import com.orrs.bookingservice.emailDetails.EmailDetails;
-import com.orrs.bookingservice.emailDetails.EmailServiceIm;
+import com.orrs.bookingservice.emailDetail.EmailDetail;
+import com.orrs.bookingservice.emailDetail.EmailServiceImplementation;
 import com.orrs.bookingservice.ticketDetails.TicketDetails;
 import com.orrs.bookingservice.ticketDetails.TicketRequest;
 import com.orrs.bookingservice.ticketRepository.TicketRepository;
@@ -17,9 +17,11 @@ public class TicketService {
 
     @Autowired
     private TicketRepository ticketRepository;
-    
+
+
     @Autowired
-    private EmailServiceIm emailServiceIm;
+    private EmailServiceImplementation emailServiceImplementation;
+
 
 
 /*
@@ -53,16 +55,17 @@ public class TicketService {
         String Message = "Your Ticket details are" + createdTicket.getPnr();
 
 
-        EmailDetails details = new EmailDetails();
-        details.setMsgBody(Message);
-        details.setRecipient("amansrivas112@gmail.com");
-        details.setSubject("");
+
+        EmailDetail emailDetail = new EmailDetail();
+        emailDetail.setMessageBody(Message);
+        emailDetail.setRecipient("amansrivas112@gmail.com");
+        emailDetail.setSubject("PNR for ticket");
 
 
     String emailResponse = new String();
 
         if (createdTicket != null) {
-             emailResponse = emailServiceIm.sendSimpleMail(details);
+             emailResponse = emailServiceImplementation.sendSimpleMail(emailDetail);
           }
         return emailResponse;
     }

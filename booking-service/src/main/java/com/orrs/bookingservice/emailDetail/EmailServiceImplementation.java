@@ -1,4 +1,4 @@
-package com.orrs.bookingservice.emailDetails;
+package com.orrs.bookingservice.emailDetail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,7 +7,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmailServiceIm implements EmailService1{
+public class EmailServiceImplementation implements EmailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -16,18 +16,20 @@ public class EmailServiceIm implements EmailService1{
     private String sender;
 
 
+
     @Override
-    public String sendSimpleMail(EmailDetails details) {
+    public String sendSimpleMail(EmailDetail emailDetail) {
         try {
 
             // Creating a simple mail message
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            SimpleMailMessage mailMessage
+                    = new SimpleMailMessage();
 
             // Setting up necessary details
             mailMessage.setFrom(sender);
-            mailMessage.setTo(details.getRecipient());
-            mailMessage.setText(details.getMsgBody());
-            mailMessage.setSubject(details.getSubject());
+            mailMessage.setTo(emailDetail.getRecipient());
+            mailMessage.setText(emailDetail.getMessageBody());
+            mailMessage.setSubject(emailDetail.getSubject());
 
             // Sending the mail
             javaMailSender.send(mailMessage);
