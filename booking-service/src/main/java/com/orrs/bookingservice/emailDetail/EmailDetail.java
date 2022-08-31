@@ -1,4 +1,4 @@
-package com.orrs.bookingservice.emailDetails;
+package com.orrs.bookingservice.emailDetail;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-public class EmailDetails {
+public class EmailDetail {
 
     private String recipient;
-    private String msgBody;
+    private String messageBody;
     private String subject;
 }

@@ -1,24 +1,15 @@
 package com.orrs.bookingservice.ticketService;
 
 
-import com.orrs.bookingservice.emailDetails.EmailDetails;
-import com.orrs.bookingservice.emailDetails.EmailServiceImp;
+import com.orrs.bookingservice.emailDetail.EmailDetail;
+import com.orrs.bookingservice.emailDetail.EmailServiceImplementation;
 import com.orrs.bookingservice.ticketDetails.TicketDetails;
 import com.orrs.bookingservice.ticketDetails.TicketRequest;
 import com.orrs.bookingservice.ticketRepository.TicketRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import java.io.File;
 
 @Service
 @AllArgsConstructor
@@ -26,9 +17,11 @@ public class TicketService {
 
     @Autowired
     private TicketRepository ticketRepository;
-    
+
+
     @Autowired
-    private EmailServiceImp emailServiceImp;
+    private EmailServiceImplementation emailServiceImplementation;
+
 
 
 /*
@@ -41,7 +34,7 @@ public class TicketService {
     }
 */
     // saving a specific record by using the method save() of crud repository
-    public TicketDetails saveTicketDetails(TicketRequest ticketDetails) {
+    public String saveTicketDetails(TicketRequest ticketDetails) {
 
         TicketDetails createdTicket = ticketRepository.save(new TicketDetails(
                 ticketDetails.getF_name(),
@@ -61,18 +54,20 @@ public class TicketService {
 
         String Message = "Your Ticket details are" + createdTicket.getPnr();
 
+        
 
-        EmailDetails details = new EmailDetails();
-        details.setMsgBody(Message);
-        details.setRecipient("anu10300@gmail.com");
-        details.setSubject("");
+        EmailDetail emailDetail = new EmailDetail();
+        emailDetail.setMessageBody(Message);
+        emailDetail.setRecipient("amansrivas112@gmail.com");
+        emailDetail.setSubject("PNR for ticket");
 
-        String emailResponse;
+
+    String emailResponse = new String();
 
         if (createdTicket != null) {
-            emailResponse = emailServiceImp.sendSimpleMail(details);
-        }
-        return createdTicket;
+             emailResponse = emailServiceImplementation.sendSimpleMail(emailDetail);
+          }
+        return emailResponse;
     }
 
     // deleting a specific record by using the method deleteById() of crud repository
