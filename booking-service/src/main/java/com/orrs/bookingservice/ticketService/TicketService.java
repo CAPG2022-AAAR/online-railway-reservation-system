@@ -2,6 +2,7 @@ package com.orrs.bookingservice.ticketService;
 
 
 import com.orrs.bookingservice.emailDetails.EmailDetails;
+import com.orrs.bookingservice.emailDetails.EmailServiceImp;
 import com.orrs.bookingservice.ticketDetails.TicketDetails;
 import com.orrs.bookingservice.ticketDetails.TicketRequest;
 import com.orrs.bookingservice.ticketRepository.TicketRepository;
@@ -25,9 +26,10 @@ public class TicketService {
 
     @Autowired
     private TicketRepository ticketRepository;
-
+    
     @Autowired
-    private JavaMailSender javaMailSender;
+    private EmailServiceImp emailServiceImp;
+
 
 /*
     // getting all the ticket records by using the method findAll() of Crud Repository
@@ -40,7 +42,8 @@ public class TicketService {
 */
     // saving a specific record by using the method save() of crud repository
     public TicketDetails saveTicketDetails(TicketRequest ticketDetails) {
-        return ticketRepository.save(new TicketDetails(
+
+        TicketDetails createdTicket = ticketRepository.save(new TicketDetails(
                 ticketDetails.getF_name(),
                 ticketDetails.getL_name(),
                 ticketDetails.getGender(),
@@ -54,6 +57,22 @@ public class TicketService {
                 ticketDetails.getDestination_id(),
                 ticketDetails.getDeparture_time()
         ));
+
+
+        String Message = "Your Ticket details are" + createdTicket.getPnr();
+
+
+        EmailDetails details = null;
+        details.setMsgBody(Message);
+        details.setRecipient("anu10300@gmail.com");
+        details.setSubject("");
+
+        String emailResponse;
+
+        if (createdTicket != null) {
+            emailResponse = emailServiceImp.sendSimpleMail(details);
+        }
+        return createdTicket;
     }
 
     // deleting a specific record by using the method deleteById() of crud repository
@@ -73,79 +92,6 @@ public class TicketService {
 
     }
 
-
-    @Value("${spring.mail.username}") private String sender;
-
-    // Method 1
-    // To send a simple email
-    public String sendSimpleMail(EmailDetails details)
-    {
-
-        // Try block to check for exceptions
-        try {
-
-            // Creating a simple mail message
-            SimpleMailMessage mailMessage
-                    = new SimpleMailMessage();
-
-            // Setting up necessary details
-            mailMessage.setFrom(sender);
-            mailMessage.setTo(details.getRecipient());
-            mailMessage.setText(details.getMsgBody());
-            mailMessage.setSubject(details.getSubject());
-
-            // Sending the mail
-            javaMailSender.send(mailMessage);
-            return "Mail Sent Successfully...";
-        }
-
-        // Catch block to handle the exceptions
-        catch (Exception e) {
-            return "Error while Sending Mail";
-        }
-    }
-
-    // Method 2
-    // To send an email with attachment
-    public String sendMailWithAttachment(EmailDetails details)
-    {
-        // Creating a mime message
-        MimeMessage mimeMessage
-                = javaMailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper;
-
-        try {
-
-            // Setting multipart as true for attachments to
-
-            mimeMessageHelper
-                    = new MimeMessageHelper(mimeMessage, true);
-            mimeMessageHelper.setFrom(sender);
-            mimeMessageHelper.setTo(details.getRecipient());
-            mimeMessageHelper.setText(details.getMsgBody());
-            mimeMessageHelper.setSubject(
-                    details.getSubject());
-
-            // Adding the attachment
-            FileSystemResource file
-                    = new FileSystemResource(
-                    new File(details.getAttachment()));
-
-            mimeMessageHelper.addAttachment(
-                    file.getFilename(), file);
-
-            // Sending the mail
-            javaMailSender.send(mimeMessage);
-            return "Mail sent Successfully";
-        }
-
-        // Catch block to handle MessagingException
-        catch (MessagingException e) {
-
-            // Display message when exception occurred
-            return "Error while sending mail!!!";
-        }
-    }
 }
 
 

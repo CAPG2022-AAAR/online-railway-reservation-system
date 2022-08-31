@@ -4,7 +4,6 @@ package com.orrs.bookingservice.ticketController;
 import com.orrs.bookingservice.emailDetails.EmailDetails;
 import com.orrs.bookingservice.ticketDetails.TicketDetails;
 import com.orrs.bookingservice.ticketDetails.TicketRequest;
-import com.orrs.bookingservice.ticketService.EmailService;
 import com.orrs.bookingservice.ticketService.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,7 @@ public class TicketController {
     @Autowired
     private TicketService ticketService;
 
-    private EmailService emailService;
+
 
 
     @GetMapping
@@ -64,24 +63,7 @@ public class TicketController {
 }
 */
 
-    // Sending a simple Email
-    @PostMapping("/sendMail")
-    public String
-    sendMail(@RequestBody EmailDetails details) {
-        String status = emailService.sendSimpleMail(details);
 
-        return status;
-    }
-
-    // Sending email with attachment
-    @PostMapping("/sendMailWithAttachment")
-    public String sendMailWithAttachment(
-            @RequestBody EmailDetails details)
-    {
-        String status = emailService.sendMailWithAttachment(details);
-
-        return status;
-    }
 }
 
 

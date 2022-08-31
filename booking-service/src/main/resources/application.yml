@@ -5,11 +5,25 @@ server:
     include-binding-errors: always
 
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  mail:
+    host: smtp.gmail.com
+    port:   587
+    username: bookingservice@gmail.com
+    password: Booking@123
+    properties:
+      mail:
+        smtp:
+          auth:
+          starttls:
+            enable: true
   application:
     name: booking-service
   datasource:
-    password: 1234
-    url: jdbc:postgresql://localhost:5433/registration
+    password: 12345
+    url: jdbc:postgresql://localhost:5432/registration
     username: postgres
   jpa:
     generate-ddl: true
@@ -19,4 +33,5 @@ spring:
           dialect: org.hibernate.dialect.PostgreSQL94Dialect
           format_sql: true
     show-sql: true
+
 
