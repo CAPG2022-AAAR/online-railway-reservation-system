@@ -34,7 +34,7 @@ public class TicketService {
     }
 */
     // saving a specific record by using the method save() of crud repository
-    public String saveTicketDetails(TicketRequest ticketDetails) {
+    public TicketDetails saveTicketDetails(TicketRequest ticketDetails) {
 
         TicketDetails createdTicket = ticketRepository.save(new TicketDetails(
                 ticketDetails.getF_name(),
@@ -67,7 +67,7 @@ public class TicketService {
         if (createdTicket != null) {
              emailResponse = emailServiceImplementation.sendSimpleMail(emailDetail);
           }
-        return emailResponse;
+        return createdTicket;
     }
 
     // deleting a specific record by using the method deleteById() of crud repository
