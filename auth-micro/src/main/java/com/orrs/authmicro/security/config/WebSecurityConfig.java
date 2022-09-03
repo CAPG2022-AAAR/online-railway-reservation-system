@@ -39,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/bookticket/**").permitAll()
                 .antMatchers("/api/v*/update/**").permitAll()
                 .antMatchers("/api/v*/registration/**").permitAll()
+                .antMatchers("/getavailabletrains").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

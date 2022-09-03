@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/train_details")
+@RequestMapping("/api/v1/")
 public class TrainDetailsController {
 
     @Autowired
@@ -21,33 +21,34 @@ public class TrainDetailsController {
     }
 
     // creating a post mapping that will post the train details in the database
-    @PostMapping("/create")
+    @PostMapping("/save-train-details")
     private Long saveTrainDetails(@RequestBody TrainRequest trainRequest) {
         return trainServices.saveTrainDetails(trainRequest).getT_id();
 
     }
 
-    @PostMapping("/traindetails")
-    private List<Long> trainDetails(@RequestBody AvailableTrainDTO availableTrainDTO){
-        return trainServices.getTrainDetails(availableTrainDTO);
+    @PostMapping("get-train-details")
+    public ListOfTrainDetailsToReturn trainDetails(@RequestBody AvailableTrainDTO availableTrainDTO) throws Exception {
+
+       return trainServices.getTrainDetails(availableTrainDTO);
     }
 
-    @PostMapping("/stationdetails")
-    private  StationDetails saveStationDetails(@RequestBody StationRequest stationDetails) {
+    @PostMapping("/save-station-details")
+    public  StationDetails saveStationDetails(@RequestBody StationRequest stationDetails) {
         return  trainServices.saveStationDetails(stationDetails);
     }
 
-    @PostMapping("/trainarrivaldetails")
-    private TrainArrivalDetails saveTrainArrivalDetails(@RequestBody TrainArrivalRequest trainArrivalRequest) {
+    @PostMapping("/save-train-arrival-details")
+    public TrainArrivalDetails saveTrainArrivalDetails(@RequestBody TrainArrivalRequest trainArrivalRequest) {
         return  trainServices.saveTrainArrivalDetails(trainArrivalRequest);
     }
 
-    @PostMapping("/traindeparturedetails")
-    private TrainDepartureDetails saveTrainDepartureDetails(@RequestBody TrainDepartureRequest trainDepartureRequest) {
+    @PostMapping("/save-train-departure-details")
+    public TrainDepartureDetails saveTrainDepartureDetails(@RequestBody TrainDepartureRequest trainDepartureRequest) {
         return  trainServices.saveTrainDepartureDetails(trainDepartureRequest);
     }
 
-    @PostMapping("/trainschedule")
+    @PostMapping("/save-train-schedule")
     private TrainSchedule saveTrainSchedule(@RequestBody TrainScheduleRequest trainSchedule) {
         return  trainServices.saveTrainSchedule(trainSchedule);
     }

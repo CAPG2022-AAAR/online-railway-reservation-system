@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,9 @@ public class TrainServices {
     @Autowired
     TrainDepartureRepository trainDepartureRepository;
 
+    @Autowired
+    DayOfTheWeek dayOfTheWeek;
+
     // saving a specific record by using the method save() of crud repository
     public Train_details saveTrainDetails(TrainRequest train_details) {
         return trainDetailsRepository.save(new Train_details(
@@ -45,16 +49,27 @@ public class TrainServices {
                 ));
     }
 
-    public List<Long> getTrainDetails(AvailableTrainDTO availableTrainDTO){
+    public ListOfTrainDetailsToReturn getTrainDetails(AvailableTrainDTO availableTrainDTO) throws Exception {
 
-        List<Train_details> temp;
+        List<TrainDetailsToReturn> finalTrainDetails = new ArrayList<>();
+        ListOfTrainDetailsToReturn listOfTrainDetailsToReturn = new ListOfTrainDetailsToReturn();
+        TrainDetailsToReturn trainDetailsToReturn = new TrainDetailsToReturn();
         List<TrainSchedule> listOfAvailableTrainsOnADay;
         List<Long> listOfTrainNumbers = new ArrayList<>();
         List<Long> listOfTrainNumbersRunningOnADay = new ArrayList<>();
         List<TrainArrivalDetails> trainArrivalDetails = trainArrivalRepository.findAll();
+        String sourceName = stationRepository.findById(availableTrainDTO.getSource_id()).get().getStationName();
+        String destinationName = stationRepository.findById(availableTrainDTO.getDestination_id()).get().getStationName();
+
+        String day = new String();
+
+        try{
+            day = dayOfTheWeek.convertDayToDate(availableTrainDTO.getDate());
+        }catch (ParseException parseEx) {
+            parseEx.printStackTrace();
+        }
 
 
-        String day = availableTrainDTO.getDay();
 
         switch(day) {
             case "Monday":
@@ -134,7 +149,6 @@ public class TrainServices {
         for( int i  = 0 ; i < listOfTrainNumbers.size() ; i++){
 
             long tempTrainNumber = listOfTrainNumbers.get(i);
-            System.out.println(tempTrainNumber);
             int sourceStopNumber = 0 ;
             int destinationStopNumber = 0 ;
             boolean sourceFound = false;
@@ -144,18 +158,15 @@ public class TrainServices {
 
                 if(trainArrivalDetails.get(j).getTrainId() == tempTrainNumber) {
 
-                    System.out.println(trainArrivalDetails.get(j).getStationId());
-                    System.out.println(availableTrainDTO.getSource_id());
                     if( availableTrainDTO.getSource_id() == trainArrivalDetails.get(j).getStationId()) {
-                        System.out.println("Inside source matching if statement");
+
                         sourceStopNumber = trainArrivalDetails.get(j).getStopNumber();
                         sourceFound = true;
-                        System.out.println("Source found! ");
+
                     }
                     if(trainArrivalDetails.get(j).getStationId() == availableTrainDTO.getDestination_id()) {
                         destinationStopNumber = trainArrivalDetails.get(j).getStopNumber();
                         destinationFound = true;
-                        System.out.println("Destination found! ");
                     }
 
                     if(sourceFound && destinationFound){
@@ -163,15 +174,29 @@ public class TrainServices {
                             listOfTrainNumbersRunningOnADay.add(tempTrainNumber);
                             sourceFound = false;
                             destinationFound = false;
+
                         }
                     }
                 }
             }
 
         }
+        for(int i = 0 ; i < listOfTrainNumbersRunningOnADay.size() ; i++){
+            long trainId = listOfTrainNumbersRunningOnADay.get(i);
+            trainDetailsToReturn.setSource(sourceName);
+            trainDetailsToReturn.setDestination(destinationName);
+            trainDetailsToReturn.setTrainId(trainId);
+            trainDetailsToReturn.setTrainName(trainDetailsRepository.findById(trainId).get().getT_name());
+            trainDetailsToReturn.setFare(trainDetailsRepository.findById(trainId).get().getT_fare());
 
+            trainDetailsToReturn.setSourceDepartureTime(getStationDepartureTime(availableTrainDTO.getSource_id(),trainId));
+            trainDetailsToReturn.setDestinationArrivalTime(getStationArrivalTime(availableTrainDTO.getDestination_id(), trainId));
 
-        return listOfTrainNumbersRunningOnADay;
+            finalTrainDetails.add(trainDetailsToReturn);
+        }
+        listOfTrainDetailsToReturn.setList(finalTrainDetails);
+
+        return listOfTrainDetailsToReturn;
     }
 
     public TrainDepartureDetails saveTrainDepartureDetails(TrainDepartureRequest trainDepartureDetails) {
@@ -181,6 +206,34 @@ public class TrainServices {
                 trainDepartureDetails.getDepartureTime()
         ));
 
+    }
+
+    public int getStationArrivalTime(long stationId , long trainId){
+        List<TrainArrivalDetails> trainArrivalDetails = trainArrivalRepository.findAll();
+        int time = 0;
+        for(int j = 0 ; j < trainArrivalDetails.size() ; j++){
+
+            if(trainArrivalDetails.get(j).getStationId()==stationId && trainArrivalDetails.get(j).getTrainId()==trainId){
+                time = (int)trainArrivalDetails.get(j).getArrivalTime();
+                break;
+            }
+
+        }
+        return time;
+    }
+
+    public int getStationDepartureTime(long stationId , long trainId){
+        List<TrainArrivalDetails> trainArrivalDetails = trainArrivalRepository.findAll();
+        int time = 0;
+        for(int j = 0 ; j < trainArrivalDetails.size() ; j++){
+
+            if(trainArrivalDetails.get(j).getStationId()==stationId && trainArrivalDetails.get(j).getTrainId()==trainId){
+                time = (int)trainArrivalDetails.get(j).getDepartureTime();
+                break;
+            }
+
+        }
+        return time;
     }
 
     public StationDetails saveStationDetails(StationRequest stationDetails) {
