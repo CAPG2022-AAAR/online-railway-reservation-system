@@ -9,7 +9,6 @@ import java.util.List;
 public class AvailableTrains {
     private List<Long> trainList = new ArrayList<>();
 
-    public List<Long> getTrainList() {
-        return trainList;
+    public List<Long> getTrainList() {        return trainList;
     }
 }

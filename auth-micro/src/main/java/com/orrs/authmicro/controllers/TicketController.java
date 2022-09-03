@@ -2,7 +2,6 @@ package com.orrs.authmicro.controllers;
 
 
 import com.orrs.authmicro.DTO.TicketDTO;
-import com.orrs.authmicro.entity.Ticket;
 import com.orrs.authmicro.entity.TicketDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

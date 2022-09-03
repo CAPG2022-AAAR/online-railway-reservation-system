@@ -1,8 +1,10 @@
-package com.orrs.authmicro.registration;
+package com.orrs.authmicro.controllers;
 
 
 import com.orrs.authmicro.customer.Customer;
 import com.orrs.authmicro.customer.CustomerService;
+import com.orrs.authmicro.registration.RegistrationRequest;
+import com.orrs.authmicro.registration.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class UpdateCustomerController {
 
-    private  RegistrationService registrationService;
+    private RegistrationService registrationService;
     private CustomerService customerService;
 
 

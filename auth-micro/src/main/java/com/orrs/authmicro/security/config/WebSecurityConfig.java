@@ -1,6 +1,7 @@
 package com.orrs.authmicro.security.config;
 
 
+import com.orrs.authmicro.controllers.AdminActionsController;
 import com.orrs.authmicro.customer.CustomerService;
 import com.orrs.authmicro.filter.JwtFilter;
 import lombok.AllArgsConstructor;
@@ -33,13 +34,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/api/v*/**").permitAll()
                 .antMatchers("/authenticate").permitAll()
-                .antMatchers("/api/v*/delete/**").permitAll()
-                .antMatchers("/bookticket/**").permitAll()
-                .antMatchers("/api/v*/update/**").permitAll()
                 .antMatchers("/api/v*/registration/**").permitAll()
                 .antMatchers("/getavailabletrains").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()

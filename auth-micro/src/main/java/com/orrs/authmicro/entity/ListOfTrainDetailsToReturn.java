@@ -16,5 +16,4 @@ public class ListOfTrainDetailsToReturn {
         this.list = list;
     }
 
-    public List<TrainDetailsToReturn> get
 }

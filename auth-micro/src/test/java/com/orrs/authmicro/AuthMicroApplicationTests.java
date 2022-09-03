@@ -4,7 +4,7 @@ import com.orrs.authmicro.customer.*;
 
 
 import com.orrs.authmicro.registration.EmailValidator;
-import com.orrs.authmicro.registration.RegistrationController;
+import com.orrs.authmicro.controllers.RegistrationController;
 import com.orrs.authmicro.registration.RegistrationRequest;
 import org.junit.jupiter.api.Test;
 
