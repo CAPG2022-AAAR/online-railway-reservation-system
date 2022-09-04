@@ -10,10 +10,7 @@ import com.orrs.authmicro.entity.TrainArrivalDetails;
 import com.orrs.authmicro.entity.TrainSchedule;
 import com.orrs.authmicro.entity.Train_details;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
@@ -23,11 +20,17 @@ public class AdminActionsController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @GetMapping("/check-connection")
+    public String checkConnection(){
+        String str = restTemplate.getForObject("http://AVAILABLE-TRAIN-INFO-SERVICE/api/v1/trains/return-string",String.class);
+        return str;
+    }
+
     @PostMapping("/create-train")
     public Train_details saveTrain(@RequestBody TrainRequest trainRequest){
 
         Train_details createdTrain = restTemplate
-                .postForObject("http://localhost:8080/api/v1/save-train-details", trainRequest , Train_details.class);
+                .postForObject("http://AVAILABLE-TRAIN-INFO-SERVICE/api/v1/save-train-details", trainRequest , Train_details.class);
         return createdTrain;
 
     }
@@ -36,14 +39,14 @@ public class AdminActionsController {
     public StationDetails saveStation(@RequestBody StationRequest stationRequest){
 
         StationDetails createdStation = restTemplate
-                .postForObject("http://localhost:8080/api/v1/save-station-details",stationRequest,StationDetails.class);
+                .postForObject("http://AVAILABLE-TRAIN-INFO-SERVICE/api/v1/save-station-details",stationRequest,StationDetails.class);
         return createdStation;
     }
 
     @PostMapping("/create-train-schedule")
     public TrainSchedule saveTrainSchedule(@RequestBody TrainScheduleRequest trainScheduleRequest){
         TrainSchedule createdSchedule = restTemplate
-                .postForObject("http://localhost:8080/api/v1/save-train-schedule",trainScheduleRequest,TrainSchedule.class);
+                .postForObject("http://AVAILABLE-TRAIN-INFO-SERVICE/api/v1/save-train-schedule",trainScheduleRequest,TrainSchedule.class);
         return createdSchedule;
     }
 

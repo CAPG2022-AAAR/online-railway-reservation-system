@@ -9,7 +9,7 @@ import lombok.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 public class AvailableTrainDTO {
-    private String source;
-    private String destination;
+    private String source_id;
+    private String destination_id;
     private String date;
 }

@@ -20,6 +20,8 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+
+
     @PostMapping("/authenticate")
     public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
 
