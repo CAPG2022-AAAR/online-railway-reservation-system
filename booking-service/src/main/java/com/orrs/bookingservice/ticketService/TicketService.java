@@ -41,6 +41,7 @@ public class TicketService {
                 ticketDetails.getL_name(),
                 ticketDetails.getGender(),
                 ticketDetails.getAddress(),
+                ticketDetails.getEmail(),
                 ticketDetails.getSeats(),
                 ticketDetails.getAmount(),
                 ticketDetails.getC_id(),
@@ -52,13 +53,13 @@ public class TicketService {
         ));
 
 
-        String Message = "Your Ticket details are" + createdTicket.getPnr();
+        String Message = "Your PNR for train ticket is : " + createdTicket.getPnr();
 
 
 
         EmailDetail emailDetail = new EmailDetail();
         emailDetail.setMessageBody(Message);
-        emailDetail.setRecipient("amansrivas112@gmail.com");
+        emailDetail.setRecipient(createdTicket.getEmail());
         emailDetail.setSubject("PNR for ticket");
 
 

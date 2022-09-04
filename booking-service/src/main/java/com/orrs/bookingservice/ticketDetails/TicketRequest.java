@@ -16,6 +16,7 @@ public class TicketRequest {
     private String l_name;
     private String gender;
     private String address;
+    private String email;
     private int seats;
     private int amount;
     private int age;
