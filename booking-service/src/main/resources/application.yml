@@ -22,8 +22,8 @@ spring:
   application:
     name: booking-service
   datasource:
-    password: 1234
-    url: jdbc:postgresql://localhost:5433/registration
+    password: 12345
+    url: jdbc:postgresql://localhost:5432/registration
     username: postgres
   jpa:
     generate-ddl: true
