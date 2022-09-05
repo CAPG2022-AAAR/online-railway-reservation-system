@@ -27,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtFilter jwtFilter;
 
     private final CustomerService customerService;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -38,7 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/publish/**").permitAll()
                 .antMatchers("/admin/check-connection").permitAll()
                 .antMatchers("/api/v*/registration/**").permitAll()
+                .antMatchers("/swagger-ui/index.html").permitAll()
                 .antMatchers("/getavailabletrains").permitAll()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
