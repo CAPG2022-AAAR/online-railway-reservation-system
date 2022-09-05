@@ -31,7 +31,7 @@ public class TrainController {
     public ListOfTrainDetailsToReturn availableTrains(@RequestBody AvailableTrainDTO availableTrainDTO){
 
         ListOfTrainDetailsToReturn list = restTemplate
-                .postForObject("http://localhost:8080/api/v1/get-train-details" ,
+                .postForObject("http://AVAILABLE-TRAIN-INFO-SERVICE/api/v1/trains/get-train-details" ,
                         availableTrainDTO ,
                         ListOfTrainDetailsToReturn.class );
 
