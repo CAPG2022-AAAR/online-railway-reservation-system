@@ -25,7 +25,7 @@ class BookingServiceApplicationTests {
 
 	@Test
 	void saveTicketDetails() {
-
+		/*
 		TicketDetails ticketDetail = new TicketDetails(
 				1234L,
 				"Akhil",
@@ -78,7 +78,7 @@ class BookingServiceApplicationTests {
 		when(ticketRepository.save(ticketDetails3)).thenReturn(ticketDetail);
 		assertEquals("Akhil",ticketService.saveTicketDetails(ticketRequest1).getF_name());
 	}
-=======
+
 		TicketDetails ticketDetails = new TicketDetails(
 				"Aman",
 				"Singh",
@@ -110,6 +110,11 @@ class BookingServiceApplicationTests {
 
 		when(ticketRepository.save(ticketDetails)).thenReturn(ticketDetails);
 		assertEquals(222,ticketService.saveTicketDetails(ticketRequest).getC_id());
->>>>>>> 96d0d05b60182515243160c7faec3baaeff495cc
 
+*/
+
+		TicketDetails ticketDetails=new TicketDetails("Aman","Srivastava","Male","Lucknow",5,1024,1234L,23,1665L,1762L,1230L,1540);
+		when(ticketRepository.save(ticketDetails)).thenReturn(ticketDetails);
+		assertEquals("Aman",ticketService.saveTicketDetails(new TicketRequest().getF_name());
 	}
+}

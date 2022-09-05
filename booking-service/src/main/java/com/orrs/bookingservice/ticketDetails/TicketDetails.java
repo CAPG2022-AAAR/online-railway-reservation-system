@@ -23,6 +23,7 @@ public class TicketDetails {
     private String l_name;
     private String gender;
     private String address;
+    private String email;
     private int seats;
     private int amount;
     private Long c_id;
@@ -32,11 +33,12 @@ public class TicketDetails {
     private Long destination_id;
     private int departure_time;
 
-    public TicketDetails(String f_name, String l_name, String gender, String address, int seats, int amount, Long c_id, int age, Long train_number,Long source_id, Long destination_id, int departure_time) {
+    public TicketDetails(String f_name, String l_name, String gender, String address, String email, int seats, int amount, Long c_id, int age, Long train_number,Long source_id, Long destination_id, int departure_time) {
         this.f_name = f_name;
         this.l_name = l_name;
         this.gender = gender;
         this.address = address;
+        this.email=email;
         this.seats = seats;
         this.amount = amount;
         this.c_id = c_id;
