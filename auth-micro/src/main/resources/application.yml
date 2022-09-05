@@ -11,7 +11,7 @@ spring:
   application:
     name: home-page-service
   datasource:
-    password: 12345
+    password: 1234
     url: jdbc:postgresql://localhost:5432/registration
     username: postgres
   jpa:
