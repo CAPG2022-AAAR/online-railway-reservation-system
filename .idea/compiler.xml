@@ -2,25 +2,36 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="auth-micro" />
-        <module name="payment-service" />
         <module name="available-train-info" />
+        <module name="payment-service" />
         <module name="eureka-server" />
-        <module name="booking-service" />
         <module name="reservation-cancellation-service" />
+        <module name="booking-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="auth-micro" target="1.5" />
+      <module name="auth-micro" target="17" />
       <module name="available-train-info" target="17" />
       <module name="booking-service" target="17" />
       <module name="eureka-server" target="17" />
       <module name="payment-service" target="17" />
       <module name="reservation-cancellation-service" target="17" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="auth-micro" options="-parameters" />
+      <module name="available-train-info" options="-parameters" />
+      <module name="booking-service" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
+      <module name="payment-service" options="-parameters" />
+      <module name="reservation-cancellation-service" options="-parameters" />
+    </option>
   </component>
 </project>

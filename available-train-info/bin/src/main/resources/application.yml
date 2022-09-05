@@ -1,0 +1,29 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  application:
+    name: available-train-info-service
+  datasource:
+    password: 12345
+    url: jdbc:postgresql://localhost:5432/registration
+    username: postgres
+  jpa:
+    generate-ddl: true
+    properties:
+      hibernate:
+        ddl-auto: update
+        dialect: org.hibernate.dialect.PostgreSQL94Dialect
+        format_sql: true
+    show-sql: true
+
+
+
+
+

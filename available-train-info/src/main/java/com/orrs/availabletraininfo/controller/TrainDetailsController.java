@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class TrainDetailsController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class TrainDetailsController {
 
     }
 
-    @PostMapping("get-train-details")
+    @PostMapping("/get-train-details")
     public ListOfTrainDetailsToReturn trainDetails(@RequestBody AvailableTrainDTO availableTrainDTO) throws Exception {
 
        return trainServices.getTrainDetails(availableTrainDTO);
