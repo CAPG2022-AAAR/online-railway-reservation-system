@@ -1,14 +1,12 @@
 package com.orrs.availabletraininfo.trainService;
 
-import com.orrs.availabletraininfo.repositories.StationRepository;
-import com.orrs.availabletraininfo.repositories.TrainArrivalRepository;
-import com.orrs.availabletraininfo.repositories.TrainDepartureRepository;
-import com.orrs.availabletraininfo.repositories.TrainScheduleRepository;
+import com.orrs.availabletraininfo.repositories.*;
 import com.orrs.availabletraininfo.trainDetails.*;
 import com.orrs.availabletraininfo.trainDetailsRepository.TrainDetailsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -32,6 +30,9 @@ public class TrainServices {
 
     @Autowired
     TrainDepartureRepository trainDepartureRepository;
+
+    @Autowired
+    SeatRepository seatRepository;
 
     @Autowired
     DayOfTheWeek dayOfTheWeek;
@@ -267,5 +268,22 @@ public class TrainServices {
                 trainSchedule.isSaturday(),
                 trainSchedule.isSunday()
         ));
+    }
+
+
+    public Seats saveSeatDetails(SeatDTO seatDTO){
+
+        Seats seats = new Seats(
+                seatDTO.getT_id(),
+                seatDTO.getMonday(),
+                seatDTO.getTuesday(),
+                seatDTO.getWednesday(),
+                seatDTO.getThursday(),
+                seatDTO.getFriday(),
+                seatDTO.getSaturday(),
+                seatDTO.getSunday()
+        );
+        return seatRepository.save(seats);
+
     }
 }

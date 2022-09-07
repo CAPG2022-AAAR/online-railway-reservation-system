@@ -26,7 +26,7 @@ public class PaypalController {
     }
 
     @PostMapping("/pay")
-    public String payment(@ModelAttribute("order") Order order) throws PayPalRESTException {
+    public String payment(@ModelAttribute("order") Order order , @RequestBody long pnr) throws PayPalRESTException {
 
         Payment payment =  service.createPayment(
                 order.getPrice(),
@@ -35,7 +35,7 @@ public class PaypalController {
                 order.getIntent(),
                 order.getDescription(),
                 "Http://localhost:8082"+CANCEL_URL,
-                "Http://localhost:8082"+SUCCESS_URL
+                "Http://localhost:8082"+SUCCESS_URL+"/"+pnr
         );
 
         for(Links link:payment.getLinks() ){

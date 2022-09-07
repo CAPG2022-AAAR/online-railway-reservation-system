@@ -15,6 +15,8 @@ public class TrainDetailsController {
     @Autowired
     private TrainServices trainServices;
 
+
+
     @GetMapping("/return-string")
     public String returnString(){
         return "Hello Youve reached available train microservices!";
@@ -58,5 +60,21 @@ public class TrainDetailsController {
         return  trainServices.saveTrainSchedule(trainSchedule);
     }
 
+    @PostMapping("/save-seat-details")
+    public Seats saveSeats(@RequestBody SeatDTO seatDTO){
+
+        Seats seats = new Seats(
+                seatDTO.getT_id(),
+                seatDTO.getMonday(),
+                seatDTO.getTuesday(),
+                seatDTO.getWednesday(),
+                seatDTO.getThursday(),
+                seatDTO.getFriday(),
+                seatDTO.getSaturday(),
+                seatDTO.getSunday()
+        );
+        return trainServices.saveSeatDetails(seatDTO);
+
+    }
 
 }
