@@ -33,7 +33,9 @@ public class TicketDetails {
     private Long destination_id;
     private int departure_time;
 
-    public TicketDetails(String f_name, String l_name, String gender, String address, String email, int seats, int amount, Long c_id, int age, Long train_number,Long source_id, Long destination_id, int departure_time) {
+    private String date;
+
+    public TicketDetails(String f_name, String l_name, String gender, String address, String email, int seats, int amount, Long c_id, int age, Long train_number,Long source_id, Long destination_id, int departure_time , String date) {
         this.f_name = f_name;
         this.l_name = l_name;
         this.gender = gender;
@@ -47,6 +49,7 @@ public class TicketDetails {
         this.source_id = source_id;
         this.destination_id = destination_id;
         this.departure_time = departure_time;
+        this.date = date;
         }
 
 

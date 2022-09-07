@@ -77,4 +77,8 @@ public class TrainDetailsController {
 
     }
 
+    @PostMapping("/get-available-seats")
+    public int  getAvailableSeats(@RequestBody SeatRequest seatRequest){
+        return trainServices.getAvailableSeats(seatRequest.getTrainId() , seatRequest.getDate());
+    }
 }

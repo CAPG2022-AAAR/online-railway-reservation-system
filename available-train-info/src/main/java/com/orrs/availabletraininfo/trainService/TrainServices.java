@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -51,6 +52,8 @@ public class TrainServices {
     }
 
     public ListOfTrainDetailsToReturn getTrainDetails(AvailableTrainDTO availableTrainDTO) throws Exception {
+
+
 
         List<TrainDetailsToReturn> finalTrainDetails = new ArrayList<>();
         ListOfTrainDetailsToReturn listOfTrainDetailsToReturn = new ListOfTrainDetailsToReturn();
@@ -285,5 +288,53 @@ public class TrainServices {
         );
         return seatRepository.save(seats);
 
+    }
+
+
+    public Seats getSeatDetails(Long trainId){
+        Optional<Seats> seats = seatRepository.findById(trainId);
+        return seats.get();
+    }
+
+    public int getAvailableSeats(long trainId , String date){
+
+        String day = new String();
+        Optional<Seats> optionalSeats = seatRepository.findById(trainId);
+        Seats seats = optionalSeats.get();
+        int availableSeats = 0;
+
+
+        try{
+            day = dayOfTheWeek.convertDayToDate(date);
+        }catch (ParseException parseEx) {
+            parseEx.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        switch (day){
+            case "Monday":
+                availableSeats = seats.getMonday();
+            break;
+            case "Tuesday":
+                availableSeats = seats.getTuesday();
+                break;
+            case "Wednesday":
+                availableSeats = seats.getWednesday();
+                break;
+            case "Thursday":
+                availableSeats = seats.getThursday();
+                break;
+            case "Friday":
+                availableSeats = seats.getFriday();
+                break;
+            case "Saturday":
+                availableSeats = seats.getSaturday();
+                break;
+            case "Sunday":
+                availableSeats = seats.getSunday();
+                break;
+        }
+        return availableSeats;
     }
 }
