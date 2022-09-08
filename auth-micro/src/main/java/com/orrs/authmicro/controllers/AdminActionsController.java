@@ -27,10 +27,10 @@ public class AdminActionsController {
     }
 
     @PostMapping("/create-train")
-    public Train_details saveTrain(@RequestBody TrainRequest trainRequest){
+    public long saveTrain(@RequestBody TrainRequest trainRequest){
 
-        Train_details createdTrain = restTemplate
-                .postForObject("http://AVAILABLE-TRAIN-INFO-SERVICE/api/v1/save-train-details", trainRequest , Train_details.class);
+        long createdTrain = restTemplate
+                .postForObject("http://AVAILABLE-TRAIN-INFO-SERVICE/api/v1/trains/save-train-details", trainRequest , Long.class);
         return createdTrain;
 
     }
@@ -39,14 +39,14 @@ public class AdminActionsController {
     public StationDetails saveStation(@RequestBody StationRequest stationRequest){
 
         StationDetails createdStation = restTemplate
-                .postForObject("http://AVAILABLE-TRAIN-INFO-SERVICE/api/v1/save-station-details",stationRequest,StationDetails.class);
+                .postForObject("http://AVAILABLE-TRAIN-INFO-SERVICE/api/v1/trains/save-station-details",stationRequest,StationDetails.class);
         return createdStation;
     }
 
     @PostMapping("/create-train-schedule")
     public TrainSchedule saveTrainSchedule(@RequestBody TrainScheduleRequest trainScheduleRequest){
         TrainSchedule createdSchedule = restTemplate
-                .postForObject("http://AVAILABLE-TRAIN-INFO-SERVICE/api/v1/save-train-schedule",trainScheduleRequest,TrainSchedule.class);
+                .postForObject("http://AVAILABLE-TRAIN-INFO-SERVICE/api/v1/trains/save-train-schedule",trainScheduleRequest,TrainSchedule.class);
         return createdSchedule;
     }
 
@@ -54,7 +54,7 @@ public class AdminActionsController {
     @PostMapping("/create-train-arrival-details")
     public TrainArrivalDetails saveTrainArrivalDetails(@RequestBody TrainArrivalRequest trainArrivalRequest){
         TrainArrivalDetails createdTrainArrivalDetails = restTemplate
-                .postForObject("http://localhost:8080/api/v1/save-train-arrival-details",trainArrivalRequest , TrainArrivalDetails.class);
+                .postForObject("http://localhost:8080/api/v1/trains/save-train-arrival-details",trainArrivalRequest , TrainArrivalDetails.class);
 
         return createdTrainArrivalDetails;
     }

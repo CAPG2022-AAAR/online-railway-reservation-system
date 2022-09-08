@@ -5,6 +5,12 @@ server:
     include-binding-errors: always
 
 spring:
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8888
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

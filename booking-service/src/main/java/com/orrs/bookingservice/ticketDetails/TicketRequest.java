@@ -25,5 +25,6 @@ public class TicketRequest {
     private Long source_id;
     private Long destination_id;
     private int departure_time;
+    private String date;
 
 }

@@ -1,18 +1,17 @@
 package com.orrs.availabletraininfo.trainService;
 
-import com.orrs.availabletraininfo.repositories.StationRepository;
-import com.orrs.availabletraininfo.repositories.TrainArrivalRepository;
-import com.orrs.availabletraininfo.repositories.TrainDepartureRepository;
-import com.orrs.availabletraininfo.repositories.TrainScheduleRepository;
+import com.orrs.availabletraininfo.repositories.*;
 import com.orrs.availabletraininfo.trainDetails.*;
 import com.orrs.availabletraininfo.trainDetailsRepository.TrainDetailsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -34,6 +33,9 @@ public class TrainServices {
     TrainDepartureRepository trainDepartureRepository;
 
     @Autowired
+    SeatRepository seatRepository;
+
+    @Autowired
     DayOfTheWeek dayOfTheWeek;
 
     // saving a specific record by using the method save() of crud repository
@@ -50,6 +52,8 @@ public class TrainServices {
     }
 
     public ListOfTrainDetailsToReturn getTrainDetails(AvailableTrainDTO availableTrainDTO) throws Exception {
+
+
 
         List<TrainDetailsToReturn> finalTrainDetails = new ArrayList<>();
         ListOfTrainDetailsToReturn listOfTrainDetailsToReturn = new ListOfTrainDetailsToReturn();
@@ -267,5 +271,70 @@ public class TrainServices {
                 trainSchedule.isSaturday(),
                 trainSchedule.isSunday()
         ));
+    }
+
+
+    public Seats saveSeatDetails(SeatDTO seatDTO){
+
+        Seats seats = new Seats(
+                seatDTO.getT_id(),
+                seatDTO.getMonday(),
+                seatDTO.getTuesday(),
+                seatDTO.getWednesday(),
+                seatDTO.getThursday(),
+                seatDTO.getFriday(),
+                seatDTO.getSaturday(),
+                seatDTO.getSunday()
+        );
+        return seatRepository.save(seats);
+
+    }
+
+
+    public Seats getSeatDetails(Long trainId){
+        Optional<Seats> seats = seatRepository.findById(trainId);
+        return seats.get();
+    }
+
+    public int getAvailableSeats(long trainId , String date){
+
+        String day = new String();
+        Optional<Seats> optionalSeats = seatRepository.findById(trainId);
+        Seats seats = optionalSeats.get();
+        int availableSeats = 0;
+
+
+        try{
+            day = dayOfTheWeek.convertDayToDate(date);
+        }catch (ParseException parseEx) {
+            parseEx.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        switch (day){
+            case "Monday":
+                availableSeats = seats.getMonday();
+            break;
+            case "Tuesday":
+                availableSeats = seats.getTuesday();
+                break;
+            case "Wednesday":
+                availableSeats = seats.getWednesday();
+                break;
+            case "Thursday":
+                availableSeats = seats.getThursday();
+                break;
+            case "Friday":
+                availableSeats = seats.getFriday();
+                break;
+            case "Saturday":
+                availableSeats = seats.getSaturday();
+                break;
+            case "Sunday":
+                availableSeats = seats.getSunday();
+                break;
+        }
+        return availableSeats;
     }
 }
