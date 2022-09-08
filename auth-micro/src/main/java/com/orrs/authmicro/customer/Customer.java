@@ -38,7 +38,14 @@ public class Customer implements UserDetails {
     private boolean enabled = true;
 
     public
-    Customer(String fname, String lname, String address, String phoneNumber, Gender gender, String password, String email, CustomerRole customerRole) {
+    Customer(String fname,
+             String lname,
+             String address,
+             String phoneNumber,
+             Gender gender,
+             String password,
+             String email,
+             CustomerRole customerRole) {
         this.fname = fname;
         this.lname = lname;
         this.address = address;
@@ -49,7 +56,15 @@ public class Customer implements UserDetails {
         this.customerRole = customerRole;
     }
 
-    public Customer(Long id, String fname, String lname, String address, String phoneNumber, Gender gender, String password, String email, CustomerRole customerRole) {
+    public Customer(Long id,
+                    String fname,
+                    String lname,
+                    String address,
+                    String phoneNumber,
+                    Gender gender,
+                    String password,
+                    String email,
+                    CustomerRole customerRole) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
