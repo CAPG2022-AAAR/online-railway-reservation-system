@@ -1,9 +1,6 @@
 package com.orrs.bookingservice.ticketDetails;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString
 @Table(name="ticket_details")
 public class TicketDetails {
 
@@ -33,9 +31,26 @@ public class TicketDetails {
     private Long destination_id;
     private int departure_time;
 
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
+
     private String date;
 
-    public TicketDetails(String f_name, String l_name, String gender, String address, String email, int seats, int amount, Long c_id, int age, Long train_number,Long source_id, Long destination_id, int departure_time , String date) {
+    public TicketDetails(String f_name,
+                         String l_name,
+                         String gender,
+                         String address,
+                         String email,
+                         int seats,
+                         int amount,
+                         Long c_id,
+                         int age,
+                         Long train_number,
+                         Long source_id,
+                         Long destination_id,
+                         int departure_time ,
+                         String date,
+                         PaymentStatus paymentStatus) {
         this.f_name = f_name;
         this.l_name = l_name;
         this.gender = gender;
@@ -50,6 +65,7 @@ public class TicketDetails {
         this.destination_id = destination_id;
         this.departure_time = departure_time;
         this.date = date;
+        this.paymentStatus = paymentStatus;
         }
 
 

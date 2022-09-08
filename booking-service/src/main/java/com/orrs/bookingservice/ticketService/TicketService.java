@@ -4,6 +4,7 @@ package com.orrs.bookingservice.ticketService;
 import com.netflix.discovery.converters.Auto;
 import com.orrs.bookingservice.emailDetail.EmailDetail;
 import com.orrs.bookingservice.emailDetail.EmailServiceImplementation;
+import com.orrs.bookingservice.ticketDetails.PaymentStatus;
 import com.orrs.bookingservice.ticketDetails.SeatRequest;
 import com.orrs.bookingservice.ticketDetails.TicketDetails;
 import com.orrs.bookingservice.ticketDetails.TicketRequest;
@@ -62,7 +63,8 @@ public class TicketService {
                     ticketDetails.getSource_id(),
                     ticketDetails.getDestination_id(),
                     ticketDetails.getDeparture_time(),
-                    ticketDetails.getDate()
+                    ticketDetails.getDate(),
+                    PaymentStatus.FAIL
             ));
         }else{
             throw new IllegalStateException("Seats not Available for this train");
