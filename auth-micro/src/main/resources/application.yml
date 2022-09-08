@@ -4,7 +4,15 @@ server:
     include-message: always
     include-binding-errors: always
 
+
+
 spring:
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8888
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -22,6 +30,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQL94Dialect
         format_sql: true
     show-sql: true
+
+
 
 
 
