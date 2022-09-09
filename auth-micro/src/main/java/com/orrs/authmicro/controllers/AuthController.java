@@ -33,7 +33,7 @@ public class AuthController {
             );
         }
         catch (Exception e){
-            throw new Exception("Invlid Username or Password");
+            throw new Exception("Invalid Username or Password");
         }
         return jwtUtil.generateToken(authRequest.getUserName());
     }
