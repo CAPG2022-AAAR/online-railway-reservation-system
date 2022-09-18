@@ -64,9 +64,8 @@ public class MessageListener {
 
 
 
-            }else{
-
-
+            }else
+            {
                 ticketRepository.deleteById(pnr);
 
                 String Message = "Payment for ticket PNR: "+ticket.getPnr()+" Failed!";
@@ -81,7 +80,7 @@ public class MessageListener {
             }
 
         }else{
-            System.out.println("Such Ticket doesnt exist");
+            System.out.println("Such Ticket doesn't exist");
         }
 
 

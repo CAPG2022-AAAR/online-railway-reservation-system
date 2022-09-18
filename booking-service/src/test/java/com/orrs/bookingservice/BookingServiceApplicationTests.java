@@ -111,10 +111,11 @@ class BookingServiceApplicationTests {
 		when(ticketRepository.save(ticketDetails)).thenReturn(ticketDetails);
 		assertEquals(222,ticketService.saveTicketDetails(ticketRequest).getC_id());
 
-*/
+
 
 		TicketDetails ticketDetails=new TicketDetails("Aman","Srivastava","Male","Lucknow",5,1024,1234L,23,1665L,1762L,1230L,1540);
 		when(ticketRepository.save(ticketDetails)).thenReturn(ticketDetails);
 		assertEquals("Aman",ticketService.saveTicketDetails(new TicketRequest().getF_name());
+*/
 	}
 }

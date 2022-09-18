@@ -1,7 +1,7 @@
 package com.orrs.bookingservice.ticketService;
 
 
-import com.netflix.discovery.converters.Auto;
+
 import com.orrs.bookingservice.emailDetail.EmailDetail;
 import com.orrs.bookingservice.emailDetail.EmailServiceImplementation;
 import com.orrs.bookingservice.ticketDetails.PaymentStatus;
@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
 
 @Service
 @AllArgsConstructor
@@ -73,14 +74,18 @@ public class TicketService {
 
 
 
-        String Message = "Your PNR for train ticket is : " + createdTicket.getPnr();
+        String Message = "Your PNR for train ticket is = " + createdTicket.getPnr();
+        String Name = "Name = " +createdTicket.getF_name() +" " +createdTicket.getL_name();
+        String Seat = "Number of Booked Seats = " +createdTicket.getSeats();
+        String Amount = "Ticket Price = " +createdTicket.getAmount();
 
 
 
         EmailDetail emailDetail = new EmailDetail();
-        emailDetail.setMessageBody(Message);
+        emailDetail.setMessageBody(Message +"\n" +Name +"\n" +Seat +"\n" +Amount);
         emailDetail.setRecipient(createdTicket.getEmail());
         emailDetail.setSubject("PNR for ticket");
+
 
 
     String emailResponse = new String();

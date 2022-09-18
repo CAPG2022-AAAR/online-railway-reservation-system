@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+
+
 @RequestMapping("/api/v1/trains")
 public class TrainDetailsController {
 
@@ -34,7 +36,7 @@ public class TrainDetailsController {
 
     }
 
-    @PostMapping("get-train-details")
+    @PostMapping("/get-train-details")
     public ListOfTrainDetailsToReturn trainDetails(@RequestBody AvailableTrainDTO availableTrainDTO) throws Exception {
         System.out.println(availableTrainDTO.getSource_id()+availableTrainDTO.getDestination_id()+availableTrainDTO.getDate());
        return trainServices.getTrainDetails(availableTrainDTO);

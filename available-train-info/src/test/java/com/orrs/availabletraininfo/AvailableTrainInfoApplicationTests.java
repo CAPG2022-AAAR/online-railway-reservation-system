@@ -107,7 +107,7 @@ class AvailableTrainInfoApplicationTests {
 		assertEquals(67893,trainServices.saveStationDetails(stationRequest).getStationId());
 	}
 
-	@Test
+	/*@Test
 	void testTrainArrivalDetails() {
 
 		TrainArrivalDetails trainArrivalDetails = new TrainArrivalDetails(
@@ -122,7 +122,7 @@ class AvailableTrainInfoApplicationTests {
 
 		when(trainArrivalRepository.save(trainArrivalDetails)).thenReturn(trainArrivalDetails);
 		assertEquals(56732,trainServices.saveTrainArrivalDetails(trainArrivalRequest).getStationId());
-	}
+	}*/
 
 	@Test
 	void testTrainDepartureDetails() {

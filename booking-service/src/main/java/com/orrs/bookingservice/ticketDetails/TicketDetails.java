@@ -31,6 +31,7 @@ public class TicketDetails {
     private Long destination_id;
     private int departure_time;
 
+
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
