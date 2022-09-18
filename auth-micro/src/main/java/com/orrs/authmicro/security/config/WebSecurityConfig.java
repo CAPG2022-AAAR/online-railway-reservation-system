@@ -39,11 +39,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/publish/**").permitAll()
                 .antMatchers("/admin/check-connection").permitAll()
                 .antMatchers("/api/v*/registration/**").permitAll()
-                .antMatchers("/swagger-ui/index.html").permitAll()
+                .antMatchers("/swagger-ui/index.html#/").permitAll()
                 .antMatchers("/getavailabletrains").permitAll()
                 .antMatchers("/**").permitAll()
-                .antMatchers("/admin/**").permitAll()
-               // .hasAuthority("ADMIN")
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers(
+                        "/v2/api-docs",
+                        "/swagger-resources/**",
+                        "/swagger-ui.html",
+                        "/webjars/**" ,
+                        "/swagger.json")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
