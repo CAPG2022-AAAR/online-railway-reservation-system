@@ -25,7 +25,7 @@ public class TicketController {
     public TicketDetails bookedTicket(@RequestBody TicketDTO ticketDTO){
 
         TicketDetails ticketDetails = new TicketDetails();
-        ticketDetails = restTemplate.postForObject("http://localhost:8081/api/v1/ticket_details/create", ticketDTO , TicketDetails.class  );
+        ticketDetails = restTemplate.postForObject("http://BOOKING-SERVICE/api/v1/ticket_details/create", ticketDTO , TicketDetails.class  );
         return ticketDetails;
     }
 }
