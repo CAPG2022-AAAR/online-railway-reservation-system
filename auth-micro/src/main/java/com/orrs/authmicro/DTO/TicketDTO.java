@@ -16,6 +16,7 @@ public class TicketDTO {
     private String l_name;
     private String gender;
     private String address;
+    private String email;
     private int seats;
     private int amount;
     private int age;
@@ -24,5 +25,6 @@ public class TicketDTO {
     private Long source_id;
     private Long destination_id;
     private int departure_time;
+    private String date;
 
 }
