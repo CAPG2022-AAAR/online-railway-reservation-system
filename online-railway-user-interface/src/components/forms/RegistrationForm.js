@@ -24,6 +24,7 @@ export class RegistrationForm extends Component {
       fname: event.target.value
     })
   } 
+  
   handleLNameChange = (event) => {
     this.setState({
       lname: event.target.value
