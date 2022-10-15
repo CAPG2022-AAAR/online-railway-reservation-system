@@ -29,7 +29,7 @@ public class TrainController {
 
     @PostMapping
     public ListOfTrainDetailsToReturn availableTrains(@RequestBody AvailableTrainDTO availableTrainDTO){
-
+        System.out.println(availableTrainDTO.getSource_id()+availableTrainDTO.getDestination_id()+availableTrainDTO.getDate());
         ListOfTrainDetailsToReturn list = restTemplate
                 .postForObject("http://AVAILABLE-TRAIN-INFO-SERVICE/api/v1/trains/get-train-details" ,
                         availableTrainDTO ,
