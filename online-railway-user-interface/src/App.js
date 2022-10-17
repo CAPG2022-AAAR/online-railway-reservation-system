@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -13,11 +13,15 @@ import TrainInfo from './pages/traininfo';
 import { setAuthToken } from './service/setAuthToken';
 import Logout from './pages/logout';
 import AvailableTrainInfo from './pages/availableTrainInfo';
+import TicketInfo from './pages/ticketInfo';
+
 
 
 function App() {
 
-
+  useEffect(() => {
+    document.title = 'Online Railways';
+  });
 
 
   const token = localStorage.getItem("token");
@@ -42,6 +46,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/logout' element={<Logout />} />
         <Route path='/available-train-info' element={ <AvailableTrainInfo/>} />
+        <Route path='/ticketinfo' element={<TicketInfo />} />
 
       </Routes>
       </Router>
